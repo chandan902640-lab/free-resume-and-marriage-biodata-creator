@@ -106,12 +106,12 @@
         let photoHTML = '';
         if (photoInput.files && photoInput.files[0]) {
             const photoURL = URL.createObjectURL(photoInput.files[0]);
-            photoHTML = `<img src="${photoURL}" style="width: 130px; height: 160px; border: 3px solid #fff; border-radius: 8px; margin-bottom: 15px; object-fit: cover; box-shadow: 0 0 10px rgba(255,255,255,0.5);">`;
+            photoHTML = `<img src="${photoURL}" style="width: 130px; height: 160px; border: 3px solid #FFFFFF; border-radius: 8px; margin-bottom: 15px; object-fit: cover;">`;
         }
 
-        // स्टाइल: गहरा लाल और गहरा चमकता सफेद
-        const labelStyle = "color: #e60000; font-weight: bold; width: 220px; text-shadow: 1px 1px 1px rgba(0,0,0,0.2);";
-        const infoStyle = "color: #ffffff; font-weight: 600; text-shadow: 2px 2px 5px #000, 0 0 5px #000;";
+        // स्टाइल: लेबल लाल और जानकारी एकदम शुद्ध सफेद (#FFFFFF)
+        const labelStyle = "color: #FF0000; font-weight: bold; width: 220px;";
+        const infoStyle = "color: #FFFFFF; font-weight: bold; text-shadow: none;";
 
         let husbandRow = d.husband ? `<tr><td style="${labelStyle}">पति का नाम:</td><td style="${infoStyle}">${d.husband}</td></tr>` : '';
 
@@ -119,7 +119,7 @@
             <div style="width: 100vw; height: 100vh; position: relative;">
                 <img src="${currentBg}" style="width: 100%; height: 100%; position: absolute; z-index: -1; object-fit: fill;">
                 <div style="padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;">
-                    <h1 style="color: #fff; border-bottom: 4px solid #fff; padding-bottom: 5px; font-size: 38px; margin-bottom: 15px; text-shadow: 2px 2px 10px #000;">Marriage Biodata</h1>
+                    <h1 style="color: #FFFFFF; border-bottom: 4px solid #FFFFFF; padding-bottom: 5px; font-size: 38px; margin-bottom: 15px;">Marriage Biodata</h1>
                     ${photoHTML}
                     <div style="text-align: left; width: 100%; max-width: 550px; font-size: 21px; line-height: 1.6;">
                         <table style="width: 100%; border-spacing: 0 10px;">
@@ -139,7 +139,7 @@
                             <tr><td style="${labelStyle}">पता (Address):</td><td style="${infoStyle}">${d.address}</td></tr>
                         </table>
                     </div>
-                    <p style="margin-top: auto; font-size: 24px; color: #fff; font-weight: bold; text-shadow: 2px 2px 10px #000;">|| श्री गणेशाय नम: ||</p>
+                    <p style="margin-top: auto; font-size: 24px; color: #FFFFFF; font-weight: bold;">|| श्री गणेशाय नम: ||</p>
                 </div>
             </div>
         `;
