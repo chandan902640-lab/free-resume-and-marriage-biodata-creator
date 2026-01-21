@@ -24,9 +24,15 @@
         .full-width { grid-column: span 2; }
         
         .btn-make { background: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-make:hover { background: #218838; }
 
-        /* मोबाइल के लिए सेटिंग */
+        /* प्रिंट के समय केवल बायोडाटा दिखे, फॉर्म छिप जाए */
+        @media print {
+            body { background: white !important; padding: 0 !important; margin: 0 !important; }
+            .form-container { display: none !important; }
+            #print-area { display: block !important; }
+        }
+        #print-area { display: none; }
+
         @media (max-width: 600px) {
             .form-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
@@ -38,7 +44,7 @@
 <div class="form-container">
     <h2>FREE Marriage Biodata Maker</h2>
     
-    <label>वॉलपेपर चुनें:</label>
+    <label>वॉलपेपर चुनें (Choose Wallpaper):</label>
     <div class="wallpaper-gallery">
         <img src="marriagephoto/1.jpeg" onclick="changeBg('marriagephoto/1.jpeg')">
         <img src="marriagephoto/2.jpeg" onclick="changeBg('marriagephoto/2.jpeg')">
@@ -53,22 +59,24 @@
     </div>
 
     <div class="form-grid">
-        <div><label>पूरा नाम:(FULL NAME)</label><input type="text" id="name" placeholder="नाम लिखें"></div>
+        <div><label>पूरा नाम (Full Name):</label><input type="text" id="name" placeholder="नाम लिखें"></div>
         <div><label>जाति (Caste):</label><input type="text" id="caste" placeholder="अपनी जाति लिखें"></div>
-        <div><label>जन्म तिथि:(DATE OF BIRTH)</label><input type="text" id="dob" placeholder="तारीख/महीना/साल"></div>
+        <div><label>जन्म तिथि (DOB):</label><input type="text" id="dob" placeholder="तारीख/महीना/साल"></div>
         <div><label>लंबाई (Height):</label><input type="text" id="height" placeholder="जैसे 5.5 feet"></div>
-        <div><label>पिता का नाम:(Father name)</label><input type="text" id="fathername" placeholder="पिता का नाम"></div>
-        <div><label>माता का नाम(mother name):</label><input type="text" id="mothername" placeholder="माता का नाम"></div>
+        <div><label>पिता का नाम (Father's Name):</label><input type="text" id="fathername" placeholder="पिता का नाम"></div>
+        <div><label>माता का नाम (Mother's Name):</label><input type="text" id="mothername" placeholder="माता का नाम"></div>
         <div><label>व्यवसाय (Occupation):</label><input type="text" id="work" placeholder="जैसे Job/Business"></div>
         <div><label>शिक्षा (Education):</label><input type="text" id="edu" placeholder="आपकी डिग्री"></div>
         <div><label>मोबाइल नंबर:</label><input type="text" id="phone" placeholder="10 अंकों का नंबर"></div>
         <div><label>शौक (Hobbies):</label><input type="text" id="hobbies" placeholder="पढ़ना, खाना बनाना आदि"></div>
         <div class="full-width"><label>पारिवारिक विवरण (Family Details):</label><input type="text" id="family" placeholder="जैसे 1 भाई, 2 बहन"></div>
-        <div class="full-width"><label>पूरा पता:(Full address)</label><textarea id="address" rows="2" placeholder="गाँव, शहर, जिला..."></textarea></div>
+        <div class="full-width"><label>पूरा पता (Full Address):</label><textarea id="address" rows="2" placeholder="गाँव, शहर, जिला..."></textarea></div>
     </div>
     
     <button type="button" class="btn-make" onclick="generate()">Biodata तैयार करें</button>
 </div>
+
+<div id="print-area"></div>
 
 <script>
     let currentBg = 'marriagephoto/1.jpeg';
@@ -79,76 +87,56 @@
     }
 
     function generate() {
-        // सभी वैल्यूज़ को वेरिएबल्स में लेना
-        const name = document.getElementById('name').value;
-        const caste = document.getElementById('caste').value;
-        const dob = document.getElementById('dob').value;
-        const father = document.getElementById('fathername').value;
-        const mother = document.getElementById('mothername').value;
-        const height = document.getElementById('height').value;
-        const edu = document.getElementById('edu').value;
-        const phone = document.getElementById('phone').value;
-        const work = document.getElementById('work').value;
-        const hobbies = document.getElementById('hobbies').value;
-        const family = document.getElementById('family').value;
-        const address = document.getElementById('address').value;
+        const d = {
+            name: document.getElementById('name').value,
+            caste: document.getElementById('caste').value,
+            dob: document.getElementById('dob').value,
+            father: document.getElementById('fathername').value,
+            mother: document.getElementById('mothername').value,
+            height: document.getElementById('height').value,
+            edu: document.getElementById('edu').value,
+            phone: document.getElementById('phone').value,
+            work: document.getElementById('work').value,
+            hobbies: document.getElementById('hobbies').value,
+            family: document.getElementById('family').value,
+            address: document.getElementById('address').value
+        };
 
-        if(!name || !phone) { alert("कृपया नाम और मोबाइल नंबर भरें!"); return; }
+        if(!d.name || !d.phone) { alert("कृपया नाम और मोबाइल नंबर भरें!"); return; }
 
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Marriage Biodata</title>
-                <style>
-                    body { margin: 0; padding: 0; position: relative; font-family: 'Georgia', serif; }
-                    .full-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: fill; }
-                    .container { height: 100vh; display: flex; justify-content: center; align-items: center; }
-                    .card { width: 90%; text-align: center; background: transparent; border: none; }
-                    h1 { color: #b30000; border-bottom: 3px solid #b30000; display: inline-block; padding-bottom: 5px; margin-bottom: 20px; font-size: 38px; }
+        const printArea = document.getElementById('print-area');
+        
+        printArea.innerHTML = `
+            <div style="position: relative; width: 100%; min-height: 100vh; font-family: 'Georgia', serif; color: #000;">
+                <img src="${currentBg}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; z-index: -1;">
+                <div style="padding: 60px 40px; text-align: center;">
+                    <h1 style="color: #b30000; border-bottom: 3px solid #b30000; display: inline-block; padding-bottom: 5px; font-size: 40px; margin-bottom: 40px;">Marriage Biodata</h1>
                     
-                    .info-wrapper { display: flex; justify-content: center; width: 100%; }
-                    .info { text-align: left; font-size: 22px; line-height: 1.8; color: #000; display: inline-block; }
-                    b { color: #b30000; width: 220px; display: inline-block; }
-                </style>
-            </head>
-            <body>
-                <img src="${currentBg}" class="full-bg">
-                <div class="container">
-                    <div class="card">
-                        <h1>Marriage Biodata</h1>
-                        <div class="info-wrapper">
-                            <div class="info">
-                                <div><b>नाम:</b> ${name}</div>
-                                <div><b>जाति (Caste):</b> ${caste}</div>
-                                <div><b>जन्म तिथि:</b> ${dob}</div>
-                                <div><b>लंबाई:</b> ${height}</div>
-                                <div><b>पिता का नाम:</b> ${father}</div>
-                                <div><b>माता का नाम:</b> ${mother}</div>
-                                <div><b>व्यवसाय:</b> ${work}</div>
-                                <div><b>शिक्षा:</b> ${edu}</div>
-                                <div><b>पारिवारिक विवरण:</b> ${family}</div>
-                                <div><b>शौक:</b> ${hobbies}</div>
-                                <div><b>मोबाइल:</b> ${phone}</div>
-                                <div><b>पता:</b> ${address}</div>
-                            </div>
+                    <div style="text-align: left; max-width: 500px; margin: 0 auto; font-size: 22px; line-height: 2;">
+                        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 10px;">
+                            <b style="color: #b30000;">नाम:</b> <span>${d.name}</span>
+                            <b style="color: #b30000;">जाति (Caste):</b> <span>${d.caste}</span>
+                            <b style="color: #b30000;">जन्म तिथि:</b> <span>${d.dob}</span>
+                            <b style="color: #b30000;">लंबाई:</b> <span>${d.height}</span>
+                            <b style="color: #b30000;">पिता का नाम:</b> <span>${d.father}</span>
+                            <b style="color: #b30000;">माता का नाम:</b> <span>${d.mother}</span>
+                            <b style="color: #b30000;">व्यवसाय:</b> <span>${d.work}</span>
+                            <b style="color: #b30000;">शिक्षा:</b> <span>${d.edu}</span>
+                            <b style="color: #b30000;">पारिवारिक विवरण:</b> <span>${d.family}</span>
+                            <b style="color: #b30000;">शौक:</b> <span>${d.hobbies}</span>
+                            <b style="color: #b30000;">मोबाइल:</b> <span>${d.phone}</span>
+                            <b style="color: #b30000;">पता:</b> <span>${d.address}</span>
                         </div>
-                        <p style="margin-top:30px; font-weight:bold; font-size: 22px; color: #white;">||..... ||</p>
                     </div>
                 </div>
-                <script>
-                    window.onload = function() { 
-                        setTimeout(function() { window.print(); window.close(); }, 1000); 
-                    };
-                <\/script>
-            </body>
-            </html>
-        `);
-        printWindow.document.close();
+            </div>
+        `;
+
+        // मोबाइल के लिए सीधे प्रिंट
+        setTimeout(() => {
+            window.print();
+        }, 500);
     }
 </script>
 </body>
-
 </html>
-
-
