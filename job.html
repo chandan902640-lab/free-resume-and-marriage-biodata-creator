@@ -16,7 +16,6 @@
         .full { grid-column: span 2; }
         .btn-make { background: #27ae60; color: white; border: none; padding: 18px; width: 100%; border-radius: 8px; font-size: 20px; cursor: pointer; margin-top: 30px; font-weight: bold; }
         
-        /* प्रिंट सेटिंग */
         @media print {
             body { background: white; padding: 0; }
             .form-container { display: none; }
@@ -33,33 +32,33 @@
     
     <div class="section-title">1. व्यक्तिगत जानकारी (Personal Details)</div>
     <div class="grid">
-        <div class="full"><label>पूरा नाम (Full Name)</label><input type="text" id="name" placeholder="अपना नाम लिखें"></div>
-        <div><label>पिता या पति का नाम</label><input type="text" id="father"></div>
-        <div><label>माता का नाम</label><input type="text" id="mother"></div>
+        <div class="full"><label>पूरा नाम (Full Name)</label><input type="text" id="name" placeholder="अपना पूरा नाम लिखें"></div>
+        <div><label>पिता या पति का नाम (Father/Husband Name)</label><input type="text" id="father" placeholder="पिता या पति का नाम लिखें"></div>
+        <div><label>माता का नाम (Mother's Name)</label><input type="text" id="mother" placeholder="माता का नाम लिखें"></div>
         <div><label>लिंग (Gender)</label>
-            <select id="gender"><option value="Male">Male</option><option value="Female">Female</option></select>
+            <select id="gender"><option value="Male">Male (पुरुष)</option><option value="Female">Female (महिला)</option><option value="Other">Other (अन्य)</option></select>
         </div>
-        <div><label>जाति (Caste)</label><input type="text" id="caste"></div>
-        <div><label>मोबाइल नंबर</label><input type="text" id="phone"></div>
-        <div><label>फोटो अपलोड करें</label><input type="file" id="photoInput" accept="image/*"></div>
-        <div><label>जन्म तिथि</label><input type="text" id="dob"></div>
-        <div><label>वैवाहिक स्थिति</label><input type="text" id="marital"></div>
-        <div class="full"><label>पूरा पता (Full Address)</label><textarea id="address" rows="2"></textarea></div>
+        <div><label>जाति (Caste)</label><input type="text" id="caste" placeholder="General, OBC, SC, ST"></div>
+        <div><label>मोबाइल नंबर (Mobile No.)</label><input type="text" id="phone" placeholder="अपना मोबाइल नंबर लिखें"></div>
+        <div><label>फोटो अपलोड करें (Upload Photo)</label><input type="file" id="photoInput" accept="image/*"></div>
+        <div><label>जन्म तिथि (Date of Birth)</label><input type="text" id="dob" placeholder="DD/MM/YYYY"></div>
+        <div><label>वैवाहिक स्थिति (Marital Status)</label><input type="text" id="marital" placeholder="Single / Married"></div>
+        <div class="full"><label>पूरा पता (Full Address)</label><textarea id="address" rows="2" placeholder="गाँव/शहर, पोस्ट, जिला, राज्य लिखें"></textarea></div>
     </div>
 
     <div class="section-title">2. शैक्षणिक योग्यता (Education)</div>
     <div class="grid">
-        <div class="full"><label>10वीं (हाई स्कूल)</label><input type="text" id="edu10" placeholder="बोर्ड, वर्ष, %"></div>
-        <div class="full"><label>12वीं (इंटरमीडिएट)</label><input type="text" id="edu12" placeholder="बोर्ड, वर्ष, %"></div>
-        <div class="full"><label>ITI / डिप्लोमा / अन्य</label><input type="text" id="eduITI"></div>
+        <div class="full"><label>10वीं (हाई स्कूल) - बोर्ड, वर्ष, %</label><input type="text" id="edu10" placeholder="UP Board, 2018, 75%"></div>
+        <div class="full"><label>12वीं (इंटरमीडिएट) - बोर्ड, वर्ष, %</label><input type="text" id="edu12" placeholder="UP Board, 2020, 80%"></div>
+        <div class="full"><label>ITI / डिप्लोमा / अन्य - ट्रेड, वर्ष, %</label><input type="text" id="eduITI" placeholder="ITI Fitter, 2022, 85%"></div>
     </div>
 
-    <div class="section-title">3. अनुभव और हुनर (Skills)</div>
+    <div class="section-title">3. अनुभव और हुनर (Skills & Exp)</div>
     <div class="grid">
-        <div class="full"><label>कार्य अनुभव (Experience)</label><textarea id="exp" rows="2"></textarea></div>
-        <div class="full"><label>तकनीकी कौशल (Skills)</label><input type="text" id="skills"></div>
-        <div><label>स्थान (Place)</label><input type="text" id="place"></div>
-        <div><label>दिनांक (Date)</label><input type="text" id="currDate"></div>
+        <div class="full"><label>कार्य अनुभव (Work Experience)</label><textarea id="exp" rows="2" placeholder="जैसे: 2 साल का अनुभव या Fresher"></textarea></div>
+        <div class="full"><label>तकनीकी कौशल (Technical Skills)</label><input type="text" id="skills" placeholder="जैसे: Computer, Typing, Driving आदि"></div>
+        <div><label>स्थान (Place)</label><input type="text" id="place" placeholder="अपने शहर का नाम लिखें"></div>
+        <div><label>दिनांक (Date)</label><input type="text" id="currDate" placeholder="आज की तारीख"></div>
     </div>
 
     <button type="button" class="btn-make" onclick="generate()">रिज्यूमे तैयार करें</button>
@@ -80,41 +79,45 @@
 
     function generate() {
         const name = document.getElementById('name').value;
-        if(!name) { alert("नाम भरें!"); return; }
+        if(!name) { alert("कृपया नाम भरें!"); return; }
 
         const printArea = document.getElementById('print-area');
         let content = `
             <div style="font-family:Arial; padding:30px; line-height:1.4;">
                 <div style="display:flex; justify-content:space-between; border-bottom:3px solid #2c3e50; padding-bottom:10px;">
-                    <div><h1 style="margin:0;">${name}</h1><p><b>Address:</b> ${document.getElementById('address').value}<br><b>Phone:</b> ${document.getElementById('phone').value}</p></div>
+                    <div><h1 style="margin:0; text-transform:uppercase;">${name}</h1>
+                    <p><b>Address:</b> ${document.getElementById('address').value}<br>
+                    <b>Phone:</b> ${document.getElementById('phone').value}</p></div>
                     <div style="width:110px;height:130px;border:1px solid #ccc;overflow:hidden;">
                         ${photoBase64 ? `<img src="${photoBase64}" style="width:100%;height:100%;object-fit:cover;">` : ''}
                     </div>
                 </div>
 
-                <div style="background:#f4f4f4; padding:5px 10px; font-weight:bold; border-left:6px solid #2c3e50; margin-top:20px;">Academic Qualifications</div>
+                <div style="background:#f4f4f4; padding:5px 10px; font-weight:bold; border-left:6px solid #2c3e50; margin-top:20px; text-transform:uppercase;">Academic Qualifications</div>
                 <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+                    <tr><th style="border:1px solid #ddd; padding:8px; background:#f9f9f9; text-align:left;">Qualification</th><th style="border:1px solid #ddd; padding:8px; background:#f9f9f9; text-align:left;">Board/Details</th></tr>
                     <tr><td style="border:1px solid #ddd; padding:8px;">10th (High School)</td><td style="border:1px solid #ddd; padding:8px;">${document.getElementById('edu10').value}</td></tr>
                     <tr><td style="border:1px solid #ddd; padding:8px;">12th (Intermediate)</td><td style="border:1px solid #ddd; padding:8px;">${document.getElementById('edu12').value}</td></tr>
-                    <tr><td style="border:1px solid #ddd; padding:8px;">Other Qualification</td><td style="border:1px solid #ddd; padding:8px;">${document.getElementById('eduITI').value}</td></tr>
+                    <tr><td style="border:1px solid #ddd; padding:8px;">Other (ITI/Diploma)</td><td style="border:1px solid #ddd; padding:8px;">${document.getElementById('eduITI').value}</td></tr>
                 </table>
 
-                <div style="background:#f4f4f4; padding:5px 10px; font-weight:bold; border-left:6px solid #2c3e50; margin-top:20px;">Personal Details</div>
-                <div style="display:grid; grid-template-columns:200px 1fr; gap:5px; margin-top:10px; font-size:14px;">
-                    <b>Father's Name:</b> <span>${document.getElementById('father').value}</span>
+                <div style="background:#f4f4f4; padding:5px 10px; font-weight:bold; border-left:6px solid #2c3e50; margin-top:20px; text-transform:uppercase;">Personal Details</div>
+                <div style="display:grid; grid-template-columns:220px 1fr; gap:8px; margin-top:10px; font-size:14px;">
+                    <b>Father's/Husband's Name:</b> <span>${document.getElementById('father').value}</span>
                     <b>Mother's Name:</b> <span>${document.getElementById('mother').value}</span>
                     <b>Gender:</b> <span>${document.getElementById('gender').value}</span>
                     <b>Date of Birth:</b> <span>${document.getElementById('dob').value}</span>
-                    <b>Caste:</b> <span>${document.getElementById('caste').value}</span>
+                    <b>Caste (जाति):</b> <span>${document.getElementById('caste').value}</span>
                     <b>Marital Status:</b> <span>${document.getElementById('marital').value}</span>
                 </div>
 
-                <div style="background:#f4f4f4; padding:5px 10px; font-weight:bold; border-left:6px solid #2c3e50; margin-top:20px;">Skills & Experience</div>
-                <p><b>Experience:</b> ${document.getElementById('exp').value}<br><b>Skills:</b> ${document.getElementById('skills').value}</p>
+                <div style="background:#f4f4f4; padding:5px 10px; font-weight:bold; border-left:6px solid #2c3e50; margin-top:20px; text-transform:uppercase;">Skills & Experience</div>
+                <p style="padding-left:10px;"><b>Work Experience:</b> ${document.getElementById('exp').value}<br>
+                <b>Technical Skills:</b> ${document.getElementById('skills').value}</p>
 
-                <div style="margin-top:30px;"><p><b>Declaration:</b> I hereby declare that the above information is true to the best of my knowledge.</p></div>
+                <div style="margin-top:30px;"><p><b>Declaration:</b> I hereby declare that the above-mentioned information is true to the best of my knowledge and belief.</p></div>
                 
-                <div style="display:flex; justify-content:space-between; margin-top:40px;">
+                <div style="display:flex; justify-content:space-between; margin-top:50px;">
                     <div><b>Date:</b> ${document.getElementById('currDate').value}<br><b>Place:</b> ${document.getElementById('place').value}</div>
                     <div style="text-align:center;"><b>(${name})</b><br>Signature</div>
                 </div>
