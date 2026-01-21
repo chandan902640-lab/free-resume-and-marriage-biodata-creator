@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>रिज्यूमे मेकर - प्रोफेशनल</title>
+    <style>
+        :root { --primary: #2c3e50; --accent: #3498db; }
+        body { background: #eef2f3; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; }
+        .form-container { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 850px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: var(--primary); border-bottom: 3px solid var(--accent); padding-bottom: 10px; margin-bottom: 25px; }
+        .section-title { background: var(--primary); color: white; padding: 8px 15px; font-weight: bold; margin-top: 20px; border-radius: 4px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        label { font-size: 14px; font-weight: bold; color: #444; display: block; margin-bottom: 5px; }
+        .full { grid-column: span 2; }
+        .btn-make { background: #27ae60; color: white; border: none; padding: 18px; width: 100%; border-radius: 8px; font-size: 20px; cursor: pointer; margin-top: 30px; font-weight: bold; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .full { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>📄 प्रोफेशनल रिज्यूमे मेकर</h2>
+    
+    <div class="section-title">1. व्यक्तिगत जानकारी (Personal Details)</div>
+    <div class="grid">
+        <div class="full"><label>पूरा नाम (Full Name)</label><input type="text" id="name" placeholder="अपना नाम लिखें"></div>
+        <div><label>पिता या पति का नाम (Father's / Husband's Name)</label><input type="text" id="father" placeholder="Father or Husband Name"></div>
+        <div><label>माता का नाम (Mother's Name)</label><input type="text" id="mother" placeholder="Mother's Name"></div>
+        <div><label>लिंग (Gender)</label>
+            <select id="gender">
+                <option value="Male">Male (पुरुष)</option>
+                <option value="Female">Female (महिला)</option>
+                <option value="Other">Other (अन्य)</option>
+            </select>
+        </div>
+        <div><label>जाति (Caste)</label><input type="text" id="caste" placeholder="General, OBC, SC, ST"></div>
+        <div><label>मोबाइल नंबर</label><input type="text" id="phone" placeholder="Phone Number"></div>
+        <div><label>फोटो अपलोड करें</label><input type="file" id="photoInput" accept="image/*"></div>
+        <div><label>जन्म तिथि</label><input type="text" id="dob" placeholder="DD/MM/YYYY"></div>
+        <div><label>वैवाहिक स्थिति</label><input type="text" id="marital" placeholder="Single / Married"></div>
+        <div class="full"><label>पूरा पता (Full Address)</label><textarea id="address" rows="2" placeholder="अपना स्थायी पता लिखें"></textarea></div>
+    </div>
+
+    <div class="section-title">2. शैक्षणिक योग्यता (Academic Qualifications)</div>
+    <div class="grid">
+        <div class="full"><label>10वीं (हाई स्कूल) - बोर्ड, वर्ष, %</label><input type="text" id="edu10"></div>
+        <div class="full"><label>ITI / डिप्लोमा - ट्रेड, संस्था, वर्ष, %</label><input type="text" id="eduITI"></div>
+        <div class="full"><label>12वीं (इंटरमीडिएट) - बोर्ड, वर्ष, %</label><input type="text" id="edu12"></div>
+        <div class="full"><label>ग्रेजुएशन / अन्य - डिग्री, कॉलेज, वर्ष, %</label><input type="text" id="eduGrad"></div>
+    </div>
+
+    <div class="section-title">3. अनुभव और हुनर (Skills & Experience)</div>
+    <div class="grid">
+        <div class="full"><label>कार्य अनुभव (Work Experience)</label><textarea id="exp" rows="2" placeholder="Exp या Fresher"></textarea></div>
+        <div class="full"><label>तकनीकी कौशल (Skills)</label><input type="text" id="skills" placeholder="Skills"></div>
+        <div><label>स्थान (Place)</label><input type="text" id="place" placeholder="Delhi"></div>
+        <div><label>दिनांक (Date)</label><input type="text" id="currDate" placeholder="DD/MM/YYYY"></div>
+    </div>
+
+    <button type="button" class="btn-make" onclick="generate()">रिज्यूमे तैयार करें</button>
+</div>
+
+<script>
+    let photoBase64 = "";
+
+    document.getElementById('photoInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) { photoBase64 = event.target.result; };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function generate() {
+        const d = {
+            name: document.getElementById('name').value,
+            father: document.getElementById('father').value,
+            mother: document.getElementById('mother').value,
+            gender: document.getElementById('gender').value,
+            caste: document.getElementById('caste').value,
+            phone: document.getElementById('phone').value,
+            dob: document.getElementById('dob').value,
+            marital: document.getElementById('marital').value,
+            address: document.getElementById('address').value,
+            e10: document.getElementById('edu10').value,
+            eITI: document.getElementById('eduITI').value,
+            e12: document.getElementById('edu12').value,
+            eg: document.getElementById('eduGrad').value,
+            exp: document.getElementById('exp').value,
+            skills: document.getElementById('skills').value,
+            place: document.getElementById('place').value,
+            date: document.getElementById('currDate').value
+        };
+
+        if(!d.name) { alert("कृपया नाम भरें!"); return; }
+
+        const printWin = window.open('', '_blank');
+        if (!printWin) { alert("कृपया Pop-up Allow करें!"); return; }
+        
+        let h = "<html><head><title>Resume - " + d.name + "</title><style>";
+        h += "body{font-family:Arial,sans-serif;padding:40px;color:#333;line-height:1.4;} .header{display:flex;justify-content:space-between;border-bottom:3px solid #2c3e50;padding-bottom:10px;} .photo-box{width:110px;height:130px;border:1px solid #ccc;} .section-h{background:#f4f4f4;padding:5px 10px;font-weight:bold;border-left:6px solid #2c3e50;margin-top:20px;text-transform:uppercase;} table{width:100%;border-collapse:collapse;margin-top:10px;} th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:14px;} .p-details{display:grid;grid-template-columns:220px 1fr;gap:5px;margin-top:10px;font-size:14px;} .footer{display:flex;justify-content:space-between;margin-top:50px;}</style></head><body>";
+
+        // Header
+        h += "<div class='header'><div><h1 style='margin:0;color:#2c3e50;'>" + d.name + "</h1>";
+        h += "<p><b>Full Address:</b> " + d.address + "<br><b>Phone:</b> " + d.phone + "</p></div>";
+        h += "<div class='photo-box'>" + (photoBase64 ? "<img src='"+photoBase64+"' style='width:100%;height:100%;object-fit:cover;'>" : "") + "</div></div>";
+
+        // Academic
+        h += "<div class='section-h'>Academic Qualifications</div><table><tr><th>Qualification</th><th>Details</th></tr>";
+        if(d.e10) h += "<tr><td>10th (High School)</td><td>" + d.e10 + "</td></tr>";
+        if(d.eITI) h += "<tr><td>ITI / Diploma</td><td>" + d.eITI + "</td></tr>";
+        if(d.e12) h += "<tr><td>12th (Intermediate)</td><td>" + d.e12 + "</td></tr>";
+        if(d.eg) h += "<tr><td>Graduation / Higher</td><td>" + d.eg + "</td></tr></table>";
+
+        // Personal
+        h += "<div class='section-h'>Personal Details</div><div class='p-details'>";
+        h += "<b>Father's / Husband's Name:</b> <span>" + d.father + "</span>";
+        h += "<b>Mother's Name:</b> <span>" + d.mother + "</span>";
+        h += "<b>Gender:</b> <span>" + d.gender + "</span>";
+        h += "<b>Caste (जाति):</b> <span>" + d.caste + "</span>";
+        h += "<b>Date of Birth:</b> <span>" + d.dob + "</span>";
+        h += "<b>Marital Status:</b> <span>" + d.marital + "</span></div>";
+
+        h += "<div class='section-h'>Work Experience & Skills</div><p style='padding-left:10px;'><b>Experience:</b> " + d.exp + "<br><b>Skills:</b> " + d.skills + "</p>";
+
+        // Footer
+        h += "<div style='margin-top:40px;'><p><b>Declaration:</b> I hereby declare that all the information mentioned above is true and correct.</p></div>";
+        h += "<div class='footer'><div><b>Date:</b> " + d.date + "<br><b>Place:</b> " + d.place + "</div>";
+        h += "<div style='text-align:center;'><b>(" + d.name + ")</b><br>Signature</div></div>";
+
+        h += "<script>window.onload=function(){setTimeout(function(){window.print();},500);};<\/script></body></html>";
+
+        printWin.document.write(h);
+        printWin.document.close();
+    }
+</script>
+</body>
+</html>
