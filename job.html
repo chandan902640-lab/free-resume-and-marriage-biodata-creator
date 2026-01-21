@@ -97,11 +97,10 @@
 
         if(!d.name) { alert("कृपया नाम भरें!"); return; }
 
-        // मोबाइल के लिए _blank की जगह सीधा डॉक्यूमेंट लिखें
         const printWin = window.open('', '_blank');
         
         let h = "<html><head><title>Resume - " + d.name + "</title><style>";
-        h += "body{font-family:Arial,sans-serif;padding:20px;color:#333;line-height:1.4;} .header{display:flex;justify-content:space-between;border-bottom:3px solid #2c3e50;padding-bottom:10px;} .photo-box{width:110px;height:130px;border:1px solid #ccc;} .section-h{background:#f4f4f4;padding:5px 10px;font-weight:bold;border-left:6px solid #2c3e50;margin-top:20px;} table{width:100%;border-collapse:collapse;margin-top:10px;} th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:14px;} .p-details{display:grid;grid-template-columns:220px 1fr;gap:5px;margin-top:10px;font-size:14px;} .footer{display:flex;justify-content:space-between;margin-top:50px;}</style></head><body>";
+        h += "body{font-family:Arial,sans-serif;padding:30px;color:#333;line-height:1.4;} .header{display:flex;justify-content:space-between;border-bottom:3px solid #2c3e50;padding-bottom:10px;} .photo-box{width:110px;height:130px;border:1px solid #ccc;overflow:hidden;} .section-h{background:#f4f4f4;padding:5px 10px;font-weight:bold;border-left:6px solid #2c3e50;margin-top:20px;text-transform:uppercase;} table{width:100%;border-collapse:collapse;margin-top:10px;} th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:14px;} .p-details{display:grid;grid-template-columns:220px 1fr;gap:5px;margin-top:10px;font-size:14px;} .footer{display:flex;justify-content:space-between;margin-top:50px;}</style></head><body>";
 
         h += "<div class='header'><div><h1 style='margin:0;color:#2c3e50;'>" + d.name + "</h1>";
         h += "<p><b>Address:</b> " + d.address + "<br><b>Phone:</b> " + d.phone + "</p></div>";
@@ -124,8 +123,8 @@
         h += "<div class='section-h'>Experience & Skills</div><p><b>Experience:</b> " + d.exp + "<br><b>Skills:</b> " + d.skills + "</p>";
         h += "<div class='footer'><div><b>Date:</b> " + d.date + "<br><b>Place:</b> " + d.place + "</div><div><b>(" + d.name + ")</b><br>Signature</div></div>";
 
-        // मोबाइल के लिए सबसे ज़रूरी स्क्रिप्ट सुधार
-        h += "<script>window.onload=function(){ setTimeout(function(){ window.print(); window.onafterprint = function(){ window.close(); }; }, 800); };<\/script></body></html>";
+        // फास्ट लोड स्क्रिप्ट
+        h += "<script>window.onload=function(){ setTimeout(function(){ window.print(); window.onafterprint=function(){ window.close(); }; }, 300); };<\/script></body></html>";
 
         printWin.document.write(h);
         printWin.document.close();
