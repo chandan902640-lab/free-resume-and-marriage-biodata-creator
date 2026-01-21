@@ -5,46 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marriage Biodata Maker</title>
     <style>
+        /* सामान्य स्टाइल */
         body {
             background-image: url('marriagephoto/1.jpeg'); 
             background-size: cover; background-position: center; background-attachment: fixed;
-            transition: 0.5s; font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 20px;
+            font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 20px;
         }
         .form-container {
             background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 15px;
             width: 100%; max-width: 650px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        h2 { text-align: center; color: #b30000; margin-bottom: 20px; }
-        .wallpaper-gallery { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; margin-bottom: 20px; border-bottom: 1px solid #ddd; }
-        .wallpaper-gallery img { width: 80px; height: 110px; border-radius: 5px; cursor: pointer; border: 2px solid white; object-fit: cover; flex-shrink: 0; }
-        
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        input, textarea, select { width: 100%; padding: 12px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; }
-        label { font-weight: bold; display: block; margin-top: 10px; color: #333; font-size: 14px; }
+        h2 { text-align: center; color: #b30000; }
+        .wallpaper-gallery { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; border-bottom: 1px solid #ddd; }
+        .wallpaper-gallery img { width: 60px; height: 80px; border-radius: 5px; cursor: pointer; object-fit: cover; border: 2px solid white; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        input, textarea, select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; }
+        label { font-weight: bold; font-size: 13px; color: #333; margin-top: 5px; display: block; }
         .full-width { grid-column: span 2; }
-        
-        .btn-make { background: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .btn-make { background: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
+        /* प्रिंट के लिए स्पेशल सेटिंग्स (2 पेज की समस्या का समाधान) */
         @media print {
-            body { background: white !important; padding: 0 !important; margin: 0 !important; }
+            @page {
+                size: A4;
+                margin: 0mm !important; /* ब्राउज़र मार्जिन खत्म करने के लिए */
+            }
+            html, body {
+                height: 100%;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden;
+            }
             .form-container { display: none !important; }
-            #print-area { display: block !important; }
-            @page { margin: 0; }
+            #print-area { 
+                display: block !important; 
+                width: 100vw; 
+                height: 100vh; 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+            }
         }
         #print-area { display: none; }
-
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-        }
     </style>
 </head>
 <body>
 
 <div class="form-container">
     <h2>FREE Marriage Biodata Maker</h2>
-    
-    <label>वॉलपेपर चुनें (Choose Wallpaper):</label>
+    <label>वॉलपेपर चुनें:</label>
     <div class="wallpaper-gallery">
         <img src="marriagephoto/1.jpeg" onclick="changeBg('marriagephoto/1.jpeg')">
         <img src="marriagephoto/2.jpeg" onclick="changeBg('marriagephoto/2.jpeg')">
@@ -59,33 +68,21 @@
     </div>
 
     <div class="form-grid">
-        <div class="full-width"><label>पूरा नाम (Full Name):</label><input type="text" id="name" placeholder="अपना नाम लिखें"></div>
-        
-        <div><label>लिंग (Gender):</label>
-            <select id="gender">
-                <option value="Male (पुरुष)">Male (पुरुष)</option>
-                <option value="Female (महिला)">Female (महिला)</option>
-            </select>
-        </div>
-        <div><label>जाति (Caste):</label><input type="text" id="caste" placeholder="अपनी जाति"></div>
-        
-        <div><label>जन्म तिथि (DOB):</label><input type="text" id="dob" placeholder="तारीख/महीना/साल"></div>
-        <div><label>लंबाई (Height):</label><input type="text" id="height" placeholder="जैसे 5.5 feet"></div>
-        
-        <div><label>पिता का नाम (Father's Name):</label><input type="text" id="fathername" placeholder="पिता का नाम"></div>
-        <div><label>पति का नाम (Husband Name - यदि हो):</label><input type="text" id="husbandname" placeholder="पति का नाम (Optional)"></div>
-        
-        <div><label>माता का नाम (Mother's Name):</label><input type="text" id="mothername" placeholder="माता का नाम"></div>
-        <div><label>व्यवसाय (Occupation):</label><input type="text" id="work" placeholder="Job/Business"></div>
-        
-        <div><label>शिक्षा (Education):</label><input type="text" id="edu" placeholder="आपकी डिग्री"></div>
-        <div><label>मोबाइल नंबर (Mobile):</label><input type="text" id="phone" placeholder="Contact No."></div>
-        
-        <div class="full-width"><label>शौक (Hobbies):</label><input type="text" id="hobbies" placeholder="पढ़ना, खाना बनाना आदि"></div>
-        <div class="full-width"><label>पारिवारिक विवरण (Family Details):</label><input type="text" id="family" placeholder="जैसे 1 भाई, 2 बहन"></div>
-        <div class="full-width"><label>पूरा पता (Full Address):</label><textarea id="address" rows="2" placeholder="गाँव, शहर, जिला..."></textarea></div>
+        <div class="full-width"><label>पूरा नाम:</label><input type="text" id="name"></div>
+        <div><label>लिंग:</label><select id="gender"><option>Male</option><option>Female</option></select></div>
+        <div><label>जाति:</label><input type="text" id="caste"></div>
+        <div><label>जन्म तिथि:</label><input type="text" id="dob"></div>
+        <div><label>लंबाई:</label><input type="text" id="height"></div>
+        <div><label>पिता का नाम:</label><input type="text" id="fathername"></div>
+        <div><label>पति का नाम:</label><input type="text" id="husbandname"></div>
+        <div><label>माता का नाम:</label><input type="text" id="mothername"></div>
+        <div><label>व्यवसाय:</label><input type="text" id="work"></div>
+        <div><label>शिक्षा:</label><input type="text" id="edu"></div>
+        <div><label>मोबाइल:</label><input type="text" id="phone"></div>
+        <div class="full-width"><label>शौक:</label><input type="text" id="hobbies"></div>
+        <div class="full-width"><label>पारिवारिक विवरण:</label><input type="text" id="family"></div>
+        <div class="full-width"><label>पता:</label><textarea id="address" rows="2"></textarea></div>
     </div>
-    
     <button type="button" class="btn-make" onclick="generate()">Biodata तैयार करें</button>
 </div>
 
@@ -93,11 +90,7 @@
 
 <script>
     let currentBg = 'marriagephoto/1.jpeg';
-
-    function changeBg(imgPath) {
-        document.body.style.backgroundImage = "url('" + imgPath + "')";
-        currentBg = imgPath;
-    }
+    function changeBg(p) { document.body.style.backgroundImage = "url('"+p+"')"; currentBg = p; }
 
     function generate() {
         const d = {
@@ -117,39 +110,31 @@
             address: document.getElementById('address').value
         };
 
-        if(!d.name) { alert("कृपया नाम भरें!"); return; }
-
         const printArea = document.getElementById('print-area');
-        
-        let husbandRow = d.husband ? `<tr><td style="color: #b30000; font-weight: bold;">पति का नाम:</td><td>${d.husband}</td></tr>` : '';
+        let husbandLine = d.husband ? `<p><b>पति का नाम:</b> ${d.husband}</p>` : '';
 
         printArea.innerHTML = `
-            <div style="position: relative; width: 100%; height: 100vh; overflow: hidden; font-family: 'Georgia', serif; color: #000;">
-                <img src="${currentBg}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; z-index: -1;">
+            <div style="width: 100vw; height: 100vh; position: relative; color: #000; font-family: 'Georgia', serif; box-sizing: border-box; overflow: hidden;">
+                <img src="${currentBg}" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: -1;">
                 
-                <div style="padding: 40px 30px; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
-                    <h1 style="color: #b30000; border-bottom: 3px solid #b30000; display: inline-block; padding-bottom: 5px; font-size: 35px; margin-top: 30px; margin-bottom: 25px;">Marriage Biodata</h1>
+                <div style="padding: 50px 40px; text-align: center;">
+                    <h1 style="color: #b30000; border-bottom: 3px solid #b30000; display: inline-block; margin-bottom: 30px;">Marriage Biodata</h1>
                     
-                    <div style="text-align: left; width: 100%; max-width: 480px; font-size: 19px; line-height: 1.7;">
-                        <table style="width: 100%; border-spacing: 0 8px;">
-                            <tr><td style="color: #b30000; font-weight: bold; width: 180px;">नाम:</td><td>${d.name}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">लिंग (Gender):</td><td>${d.gender}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">जाति (Caste):</td><td>${d.caste}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">जन्म तिथि:</td><td>${d.dob}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">लंबाई:</td><td>${d.height}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">पिता का नाम:</td><td>${d.father}</td></tr>
-                            ${husbandRow}
-                            <tr><td style="color: #b30000; font-weight: bold;">माता का नाम:</td><td>${d.mother}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">व्यवसाय:</td><td>${d.work}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">शिक्षा:</td><td>${d.edu}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">मोबाइल:</td><td>${d.phone}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">शौक:</td><td>${d.hobbies}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">पारिवारिक विवरण:</td><td>${d.family}</td></tr>
-                            <tr><td style="color: #b30000; font-weight: bold;">पता:</td><td style="font-size: 16px;">${d.address}</td></tr>
-                        </table>
+                    <div style="text-align: left; max-width: 500px; margin: 0 auto; font-size: 20px; line-height: 1.6;">
+                        <p><b>नाम:</b> ${d.name}</p>
+                        <p><b>लिंग:</b> ${d.gender}</p>
+                        <p><b>जाति:</b> ${d.caste}</p>
+                        <p><b>जन्म तिथि:</b> ${d.dob}</p>
+                        <p><b>लंबाई:</b> ${d.height}</p>
+                        <p><b>पिता का नाम:</b> ${d.father}</p>
+                        ${husbandLine}
+                        <p><b>माता का नाम:</b> ${d.mother}</p>
+                        <p><b>व्यवसाय:</b> ${d.work}</p>
+                        <p><b>शिक्षा:</b> ${d.edu}</p>
+                        <p><b>पारिवारिक विवरण:</b> ${d.family}</p>
+                        <p><b>मोबाइल:</b> ${d.phone}</p>
+                        <p style="font-size:16px;"><b>पता:</b> ${d.address}</p>
                     </div>
-
-                    <p style="margin-top: auto; padding-bottom: 40px; font-weight: bold; font-size: 20px; color: #b30000;">|| धन्यवाद ||</p>
                 </div>
             </div>
         `;
