@@ -19,17 +19,17 @@
         .wallpaper-gallery img { width: 80px; height: 110px; border-radius: 5px; cursor: pointer; border: 2px solid white; object-fit: cover; flex-shrink: 0; }
         
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        input, textarea { width: 100%; padding: 12px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; }
+        input, textarea, select { width: 100%; padding: 12px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; }
         label { font-weight: bold; display: block; margin-top: 10px; color: #333; font-size: 14px; }
         .full-width { grid-column: span 2; }
         
         .btn-make { background: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
 
-        /* प्रिंट के समय केवल बायोडाटा दिखे, फॉर्म छिप जाए */
         @media print {
             body { background: white !important; padding: 0 !important; margin: 0 !important; }
             .form-container { display: none !important; }
             #print-area { display: block !important; }
+            @page { margin: 0; }
         }
         #print-area { display: none; }
 
@@ -59,16 +59,29 @@
     </div>
 
     <div class="form-grid">
-        <div><label>पूरा नाम (Full Name):</label><input type="text" id="name" placeholder="नाम लिखें"></div>
-        <div><label>जाति (Caste):</label><input type="text" id="caste" placeholder="अपनी जाति लिखें"></div>
+        <div class="full-width"><label>पूरा नाम (Full Name):</label><input type="text" id="name" placeholder="अपना नाम लिखें"></div>
+        
+        <div><label>लिंग (Gender):</label>
+            <select id="gender">
+                <option value="Male (पुरुष)">Male (पुरुष)</option>
+                <option value="Female (महिला)">Female (महिला)</option>
+            </select>
+        </div>
+        <div><label>जाति (Caste):</label><input type="text" id="caste" placeholder="अपनी जाति"></div>
+        
         <div><label>जन्म तिथि (DOB):</label><input type="text" id="dob" placeholder="तारीख/महीना/साल"></div>
         <div><label>लंबाई (Height):</label><input type="text" id="height" placeholder="जैसे 5.5 feet"></div>
+        
         <div><label>पिता का नाम (Father's Name):</label><input type="text" id="fathername" placeholder="पिता का नाम"></div>
+        <div><label>पति का नाम (Husband Name - यदि हो):</label><input type="text" id="husbandname" placeholder="पति का नाम (Optional)"></div>
+        
         <div><label>माता का नाम (Mother's Name):</label><input type="text" id="mothername" placeholder="माता का नाम"></div>
-        <div><label>व्यवसाय (Occupation):</label><input type="text" id="work" placeholder="जैसे Job/Business"></div>
+        <div><label>व्यवसाय (Occupation):</label><input type="text" id="work" placeholder="Job/Business"></div>
+        
         <div><label>शिक्षा (Education):</label><input type="text" id="edu" placeholder="आपकी डिग्री"></div>
-        <div><label>मोबाइल नंबर:</label><input type="text" id="phone" placeholder="10 अंकों का नंबर"></div>
-        <div><label>शौक (Hobbies):</label><input type="text" id="hobbies" placeholder="पढ़ना, खाना बनाना आदि"></div>
+        <div><label>मोबाइल नंबर (Mobile):</label><input type="text" id="phone" placeholder="Contact No."></div>
+        
+        <div class="full-width"><label>शौक (Hobbies):</label><input type="text" id="hobbies" placeholder="पढ़ना, खाना बनाना आदि"></div>
         <div class="full-width"><label>पारिवारिक विवरण (Family Details):</label><input type="text" id="family" placeholder="जैसे 1 भाई, 2 बहन"></div>
         <div class="full-width"><label>पूरा पता (Full Address):</label><textarea id="address" rows="2" placeholder="गाँव, शहर, जिला..."></textarea></div>
     </div>
@@ -89,9 +102,11 @@
     function generate() {
         const d = {
             name: document.getElementById('name').value,
+            gender: document.getElementById('gender').value,
             caste: document.getElementById('caste').value,
             dob: document.getElementById('dob').value,
             father: document.getElementById('fathername').value,
+            husband: document.getElementById('husbandname').value,
             mother: document.getElementById('mothername').value,
             height: document.getElementById('height').value,
             edu: document.getElementById('edu').value,
@@ -102,40 +117,44 @@
             address: document.getElementById('address').value
         };
 
-        if(!d.name || !d.phone) { alert("कृपया नाम और मोबाइल नंबर भरें!"); return; }
+        if(!d.name) { alert("कृपया नाम भरें!"); return; }
 
         const printArea = document.getElementById('print-area');
         
+        let husbandRow = d.husband ? `<tr><td style="color: #b30000; font-weight: bold;">पति का नाम:</td><td>${d.husband}</td></tr>` : '';
+
         printArea.innerHTML = `
-            <div style="position: relative; width: 100%; min-height: 100vh; font-family: 'Georgia', serif; color: #000;">
+            <div style="position: relative; width: 100%; height: 100vh; overflow: hidden; font-family: 'Georgia', serif; color: #000;">
                 <img src="${currentBg}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; z-index: -1;">
-                <div style="padding: 60px 40px; text-align: center;">
-                    <h1 style="color: #b30000; border-bottom: 3px solid #b30000; display: inline-block; padding-bottom: 5px; font-size: 40px; margin-bottom: 40px;">Marriage Biodata</h1>
+                
+                <div style="padding: 40px 30px; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+                    <h1 style="color: #b30000; border-bottom: 3px solid #b30000; display: inline-block; padding-bottom: 5px; font-size: 35px; margin-top: 30px; margin-bottom: 25px;">Marriage Biodata</h1>
                     
-                    <div style="text-align: left; max-width: 500px; margin: 0 auto; font-size: 22px; line-height: 2;">
-                        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 10px;">
-                            <b style="color: #b30000;">नाम:</b> <span>${d.name}</span>
-                            <b style="color: #b30000;">जाति (Caste):</b> <span>${d.caste}</span>
-                            <b style="color: #b30000;">जन्म तिथि:</b> <span>${d.dob}</span>
-                            <b style="color: #b30000;">लंबाई:</b> <span>${d.height}</span>
-                            <b style="color: #b30000;">पिता का नाम:</b> <span>${d.father}</span>
-                            <b style="color: #b30000;">माता का नाम:</b> <span>${d.mother}</span>
-                            <b style="color: #b30000;">व्यवसाय:</b> <span>${d.work}</span>
-                            <b style="color: #b30000;">शिक्षा:</b> <span>${d.edu}</span>
-                            <b style="color: #b30000;">पारिवारिक विवरण:</b> <span>${d.family}</span>
-                            <b style="color: #b30000;">शौक:</b> <span>${d.hobbies}</span>
-                            <b style="color: #b30000;">मोबाइल:</b> <span>${d.phone}</span>
-                            <b style="color: #b30000;">पता:</b> <span>${d.address}</span>
-                        </div>
+                    <div style="text-align: left; width: 100%; max-width: 480px; font-size: 19px; line-height: 1.7;">
+                        <table style="width: 100%; border-spacing: 0 8px;">
+                            <tr><td style="color: #b30000; font-weight: bold; width: 180px;">नाम:</td><td>${d.name}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">लिंग (Gender):</td><td>${d.gender}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">जाति (Caste):</td><td>${d.caste}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">जन्म तिथि:</td><td>${d.dob}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">लंबाई:</td><td>${d.height}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">पिता का नाम:</td><td>${d.father}</td></tr>
+                            ${husbandRow}
+                            <tr><td style="color: #b30000; font-weight: bold;">माता का नाम:</td><td>${d.mother}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">व्यवसाय:</td><td>${d.work}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">शिक्षा:</td><td>${d.edu}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">मोबाइल:</td><td>${d.phone}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">शौक:</td><td>${d.hobbies}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">पारिवारिक विवरण:</td><td>${d.family}</td></tr>
+                            <tr><td style="color: #b30000; font-weight: bold;">पता:</td><td style="font-size: 16px;">${d.address}</td></tr>
+                        </table>
                     </div>
+
+                    <p style="margin-top: auto; padding-bottom: 40px; font-weight: bold; font-size: 20px; color: #b30000;">|| धन्यवाद ||</p>
                 </div>
             </div>
         `;
 
-        // मोबाइल के लिए सीधे प्रिंट
-        setTimeout(() => {
-            window.print();
-        }, 500);
+        setTimeout(() => { window.print(); }, 500);
     }
 </script>
 </body>
