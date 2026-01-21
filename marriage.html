@@ -54,21 +54,21 @@
     </div>
 
     <div class="form-grid">
-        <div class="full-width"><label>पूरा नाम (Full Name):</label><input type="text" id="name" placeholder="जैसे: राहुल कुमार"></div>
+        <div class="full-width"><label>पूरा नाम (Full Name):</label><input type="text" id="name" placeholder="यहाँ अपना पूरा नाम लिखें"></div>
         <div class="full-width"><label>अपनी फोटो चुनें:</label><input type="file" id="photo" accept="image/*"></div>
         <div><label>लिंग (Gender):</label><select id="gender"><option>Male (पुरुष)</option><option>Female (महिला)</option></select></div>
-        <div><label>जाति (Caste):</label><input type="text" id="caste" placeholder="जैसे: यादव"></div>
-        <div><label>जन्म तिथि (DOB):</label><input type="text" id="dob" placeholder="15/08/1995"></div>
-        <div><label>लंबाई (Height):</label><input type="text" id="height" placeholder="5' 6''"></div>
-        <div><label>पिता का नाम:</label><input type="text" id="fathername" placeholder="श्री ..."></div>
-        <div><label>पति का नाम (Optional):</label><input type="text" id="husbandname"></div>
-        <div><label>माता का नाम:</label><input type="text" id="mothername"></div>
-        <div><label>व्यवसाय (Work):</label><input type="text" id="work"></div>
-        <div><label>शिक्षा (Education):</label><input type="text" id="edu"></div>
-        <div><label>मोबाइल नंबर:</label><input type="text" id="phone"></div>
-        <div class="full-width"><label>शौक (Hobbies):</label><input type="text" id="hobbies"></div>
-        <div class="full-width"><label>परिवार का विवरण:</label><input type="text" id="family"></div>
-        <div class="full-width"><label>पूरा पता (Address):</label><textarea id="address" rows="2"></textarea></div>
+        <div><label>जाति (Caste):</label><input type="text" id="caste" placeholder="अपनी जाति या उपजाति लिखें"></div>
+        <div><label>जन्म तिथि (DOB):</label><input type="text" id="dob" placeholder="दिन/महीना/साल लिखें"></div>
+        <div><label>लंबाई (Height):</label><input type="text" id="height" placeholder="जैसे: 5 फुट 6 इंच"></div>
+        <div><label>पिता का नाम:</label><input type="text" id="fathername" placeholder="पिता का नाम (श्री के साथ)"></div>
+        <div><label>पति का नाम (Optional):</label><input type="text" id="husbandname" placeholder="यदि विवाहित हैं तो नाम लिखें"></div>
+        <div><label>माता का नाम:</label><input type="text" id="mothername" placeholder="माता का नाम (श्रीमती के साथ)"></div>
+        <div><label>व्यवसाय (Work):</label><input type="text" id="work" placeholder="आप क्या काम करते हैं?"></div>
+        <div><label>शिक्षा (Education):</label><input type="text" id="edu" placeholder="अपनी उच्चतम पढ़ाई लिखें"></div>
+        <div><label>मोबाइल नंबर:</label><input type="text" id="phone" placeholder="संपर्क के लिए मोबाइल नंबर"></div>
+        <div class="full-width"><label>शौक (Hobbies):</label><input type="text" id="hobbies" placeholder="जैसे: पढ़ना, खाना बनाना, घूमना"></div>
+        <div class="full-width"><label>परिवार का विवरण:</label><input type="text" id="family" placeholder="भाई-बहन और परिवार की जानकारी"></div>
+        <div class="full-width"><label>पूरा पता (Address):</label><textarea id="address" rows="2" placeholder="गाँव/शहर, जिला और राज्य का नाम लिखें"></textarea></div>
     </div>
     
     <button type="button" class="btn-make" onclick="generate()">सुंदर बायोडाटा तैयार करें</button>
@@ -98,26 +98,28 @@
             address: document.getElementById('address').value
         };
 
+        if(!d.name) { alert("कृपया नाम भरें!"); return; }
+
         const photoInput = document.getElementById('photo');
         const printArea = document.getElementById('print-area');
         
         let photoHTML = '';
         if (photoInput.files && photoInput.files[0]) {
             const photoURL = URL.createObjectURL(photoInput.files[0]);
-            photoHTML = `<img src="${photoURL}" style="width: 130px; height: 160px; border: 3px solid white; border-radius: 8px; margin-bottom: 15px; object-fit: cover;">`;
+            photoHTML = `<img src="${photoURL}" style="width: 130px; height: 160px; border: 3px solid #fff; border-radius: 8px; margin-bottom: 15px; object-fit: cover; box-shadow: 0 0 10px rgba(255,255,255,0.5);">`;
         }
 
-        // Labels के लिए गहरा लाल (Dark Red) और जानकारी के लिए सफेद (White)
-        const labelStyle = "color: #ff0000; font-weight: bold; width: 220px; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);";
-        const infoStyle = "color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);";
+        // स्टाइल: गहरा लाल और गहरा चमकता सफेद
+        const labelStyle = "color: #e60000; font-weight: bold; width: 220px; text-shadow: 1px 1px 1px rgba(0,0,0,0.2);";
+        const infoStyle = "color: #ffffff; font-weight: 600; text-shadow: 2px 2px 5px #000, 0 0 5px #000;";
 
         let husbandRow = d.husband ? `<tr><td style="${labelStyle}">पति का नाम:</td><td style="${infoStyle}">${d.husband}</td></tr>` : '';
 
         printArea.innerHTML = `
-            <div style="width: 100vw; height: 100vh; position: relative; box-sizing: border-box;">
+            <div style="width: 100vw; height: 100vh; position: relative;">
                 <img src="${currentBg}" style="width: 100%; height: 100%; position: absolute; z-index: -1; object-fit: fill;">
                 <div style="padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;">
-                    <h1 style="color: white; border-bottom: 4px solid white; padding-bottom: 5px; font-size: 38px; margin-bottom: 15px; text-shadow: 2px 2px 5px black;">Marriage Biodata</h1>
+                    <h1 style="color: #fff; border-bottom: 4px solid #fff; padding-bottom: 5px; font-size: 38px; margin-bottom: 15px; text-shadow: 2px 2px 10px #000;">Marriage Biodata</h1>
                     ${photoHTML}
                     <div style="text-align: left; width: 100%; max-width: 550px; font-size: 21px; line-height: 1.6;">
                         <table style="width: 100%; border-spacing: 0 10px;">
@@ -137,7 +139,7 @@
                             <tr><td style="${labelStyle}">पता (Address):</td><td style="${infoStyle}">${d.address}</td></tr>
                         </table>
                     </div>
-                    <p style="margin-top: auto; font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 5px black;">|| श्री गणेशाय नम: ||</p>
+                    <p style="margin-top: auto; font-size: 24px; color: #fff; font-weight: bold; text-shadow: 2px 2px 10px #000;">|| श्री गणेशाय नम: ||</p>
                 </div>
             </div>
         `;
