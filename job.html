@@ -15,6 +15,15 @@
         label { font-size: 14px; font-weight: bold; color: #444; display: block; margin-bottom: 5px; }
         .full { grid-column: span 2; }
         .btn-make { background: #27ae60; color: white; border: none; padding: 18px; width: 100%; border-radius: 8px; font-size: 20px; cursor: pointer; margin-top: 30px; font-weight: bold; }
+        
+        /* प्रिंट के समय फॉर्म को छिपाने के लिए */
+        @media print {
+            body { background: white; padding: 0; }
+            .form-container { display: none; }
+            #print-area { display: block !important; }
+        }
+        #print-area { display: none; }
+
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .full { grid-column: span 1; } }
     </style>
 </head>
@@ -23,48 +32,29 @@
 <div class="form-container">
     <h2>📄 प्रोफेशनल रिज्यूमे मेकर</h2>
     
-    <div class="section-title">1. व्यक्तिगत जानकारी (Personal Details)</div>
+    <div class="section-title">1. व्यक्तिगत जानकारी</div>
     <div class="grid">
-        <div class="full"><label>पूरा नाम (Full Name)</label><input type="text" id="name" placeholder="अपना नाम लिखें"></div>
-        <div><label>पिता या पति का नाम</label><input type="text" id="father" placeholder="Father or Husband Name"></div>
-        <div><label>माता का नाम</label><input type="text" id="mother" placeholder="Mother's Name"></div>
+        <div class="full"><label>पूरा नाम</label><input type="text" id="name" placeholder="अपना नाम लिखें"></div>
+        <div><label>पिता या पति का नाम</label><input type="text" id="father"></div>
+        <div><label>माता का नाम</label><input type="text" id="mother"></div>
         <div><label>लिंग (Gender)</label>
-            <select id="gender">
-                <option value="Male">Male (पुरुष)</option>
-                <option value="Female">Female (महिला)</option>
-                <option value="Other">Other (अन्य)</option>
-            </select>
+            <select id="gender"><option value="Male">Male</option><option value="Female">Female</option></select>
         </div>
-        <div><label>जाति (Caste)</label><input type="text" id="caste" placeholder="General, OBC, SC, ST"></div>
-        <div><label>मोबाइल नंबर</label><input type="text" id="phone" placeholder="Phone Number"></div>
-        <div><label>फोटो अपलोड करें</label><input type="file" id="photoInput" accept="image/*"></div>
-        <div><label>जन्म तिथि</label><input type="text" id="dob" placeholder="DD/MM/YYYY"></div>
-        <div><label>वैवाहिक स्थिति</label><input type="text" id="marital" placeholder="Single / Married"></div>
-        <div class="full"><label>पूरा पता (Full Address)</label><textarea id="address" rows="2" placeholder="अपना स्थायी पता लिखें"></textarea></div>
-    </div>
-
-    <div class="section-title">2. शैक्षणिक योग्यता</div>
-    <div class="grid">
-        <div class="full"><label>10वीं (हाई स्कूल) - बोर्ड, वर्ष, %</label><input type="text" id="edu10"></div>
-        <div class="full"><label>ITI / डिप्लोमा - ट्रेड, संस्था, वर्ष, %</label><input type="text" id="eduITI"></div>
-        <div class="full"><label>12वीं (इंटरमीडिएट) - बोर्ड, वर्ष, %</label><input type="text" id="edu12"></div>
-        <div class="full"><label>ग्रेजुएशन / अन्य - डिग्री, कॉलेज, वर्ष, %</label><input type="text" id="eduGrad"></div>
-    </div>
-
-    <div class="section-title">3. अनुभव और हुनर</div>
-    <div class="grid">
-        <div class="full"><label>कार्य अनुभव (Work Experience)</label><textarea id="exp" rows="2" placeholder="Exp या Fresher"></textarea></div>
-        <div class="full"><label>तकनीकी कौशल (Skills)</label><input type="text" id="skills" placeholder="Skills"></div>
-        <div><label>स्थान (Place)</label><input type="text" id="place" placeholder="Delhi"></div>
-        <div><label>दिनांक (Date)</label><input type="text" id="currDate" placeholder="DD/MM/YYYY"></div>
+        <div><label>जाति</label><input type="text" id="caste"></div>
+        <div><label>मोबाइल नंबर</label><input type="text" id="phone"></div>
+        <div><label>फोटो</label><input type="file" id="photoInput" accept="image/*"></div>
+        <div><label>जन्म तिथि</label><input type="text" id="dob"></div>
+        <div><label>वैवाहिक स्थिति</label><input type="text" id="marital"></div>
+        <div class="full"><label>पूरा पता</label><textarea id="address" rows="2"></textarea></div>
     </div>
 
     <button type="button" class="btn-make" onclick="generate()">रिज्यूमे तैयार करें</button>
 </div>
 
+<div id="print-area"></div>
+
 <script>
     let photoBase64 = "";
-
     document.getElementById('photoInput').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
@@ -75,59 +65,31 @@
     });
 
     function generate() {
-        const d = {
-            name: document.getElementById('name').value,
-            father: document.getElementById('father').value,
-            mother: document.getElementById('mother').value,
-            gender: document.getElementById('gender').value,
-            caste: document.getElementById('caste').value,
-            phone: document.getElementById('phone').value,
-            dob: document.getElementById('dob').value,
-            marital: document.getElementById('marital').value,
-            address: document.getElementById('address').value,
-            e10: document.getElementById('edu10').value,
-            eITI: document.getElementById('eduITI').value,
-            e12: document.getElementById('edu12').value,
-            eg: document.getElementById('eduGrad').value,
-            exp: document.getElementById('exp').value,
-            skills: document.getElementById('skills').value,
-            place: document.getElementById('place').value,
-            date: document.getElementById('currDate').value
-        };
+        const name = document.getElementById('name').value;
+        if(!name) { alert("नाम भरें!"); return; }
 
-        if(!d.name) { alert("कृपया नाम भरें!"); return; }
-
-        const printWin = window.open('', '_blank');
+        const printArea = document.getElementById('print-area');
         
-        let h = "<html><head><title>Resume - " + d.name + "</title><style>";
-        h += "body{font-family:Arial,sans-serif;padding:30px;color:#333;line-height:1.4;} .header{display:flex;justify-content:space-between;border-bottom:3px solid #2c3e50;padding-bottom:10px;} .photo-box{width:110px;height:130px;border:1px solid #ccc;overflow:hidden;} .section-h{background:#f4f4f4;padding:5px 10px;font-weight:bold;border-left:6px solid #2c3e50;margin-top:20px;text-transform:uppercase;} table{width:100%;border-collapse:collapse;margin-top:10px;} th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:14px;} .p-details{display:grid;grid-template-columns:220px 1fr;gap:5px;margin-top:10px;font-size:14px;} .footer{display:flex;justify-content:space-between;margin-top:50px;}</style></head><body>";
+        let content = `
+            <div style="font-family:Arial; padding:20px; border-bottom:3px solid #2c3e50; display:flex; justify-content:space-between;">
+                <div><h1>${name}</h1><p>${document.getElementById('address').value}</p></div>
+                <div style="width:100px;height:120px;border:1px solid #ccc;">
+                    ${photoBase64 ? `<img src="${photoBase64}" style="width:100%;height:100%;object-fit:cover;">` : ''}
+                </div>
+            </div>
+            <div style="padding:20px;">
+                <h3>Personal Details</h3>
+                <p><b>Father:</b> ${document.getElementById('father').value}</p>
+                <p><b>Phone:</b> ${document.getElementById('phone').value}</p>
+                <p><b>DOB:</b> ${document.getElementById('dob').value}</p>
+            </div>
+            <p style="text-align:center; margin-top:50px;"><b>Signature:</b> _________________</p>
+        `;
 
-        h += "<div class='header'><div><h1 style='margin:0;color:#2c3e50;'>" + d.name + "</h1>";
-        h += "<p><b>Address:</b> " + d.address + "<br><b>Phone:</b> " + d.phone + "</p></div>";
-        h += "<div class='photo-box'>" + (photoBase64 ? "<img src='"+photoBase64+"' style='width:100%;height:100%;object-fit:cover;'>" : "") + "</div></div>";
-
-        h += "<div class='section-h'>Academic Qualifications</div><table><tr><th>Qualification</th><th>Details</th></tr>";
-        if(d.e10) h += "<tr><td>10th (High School)</td><td>" + d.e10 + "</td></tr>";
-        if(d.eITI) h += "<tr><td>ITI / Diploma</td><td>" + d.eITI + "</td></tr>";
-        if(d.e12) h += "<tr><td>12th (Intermediate)</td><td>" + d.e12 + "</td></tr>";
-        if(d.eg) h += "<tr><td>Graduation / Higher</td><td>" + d.eg + "</td></tr></table>";
-
-        h += "<div class='section-h'>Personal Details</div><div class='p-details'>";
-        h += "<b>Father's / Husband's Name:</b> <span>" + d.father + "</span>";
-        h += "<b>Mother's Name:</b> <span>" + d.mother + "</span>";
-        h += "<b>Gender:</b> <span>" + d.gender + "</span>";
-        h += "<b>Caste:</b> <span>" + d.caste + "</span>";
-        h += "<b>Date of Birth:</b> <span>" + d.dob + "</span>";
-        h += "<b>Marital Status:</b> <span>" + d.marital + "</span></div>";
-
-        h += "<div class='section-h'>Experience & Skills</div><p><b>Experience:</b> " + d.exp + "<br><b>Skills:</b> " + d.skills + "</p>";
-        h += "<div class='footer'><div><b>Date:</b> " + d.date + "<br><b>Place:</b> " + d.place + "</div><div><b>(" + d.name + ")</b><br>Signature</div></div>";
-
-        // फास्ट लोड स्क्रिप्ट
-        h += "<script>window.onload=function(){ setTimeout(function(){ window.print(); window.onafterprint=function(){ window.close(); }; }, 300); };<\/script></body></html>";
-
-        printWin.document.write(h);
-        printWin.document.close();
+        printArea.innerHTML = content;
+        
+        // मोबाइल के लिए बिना नई विंडो खोले प्रिंट
+        window.print();
     }
 </script>
 </body>
