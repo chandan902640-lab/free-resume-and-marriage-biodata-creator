@@ -10,6 +10,7 @@
 
     <style>
         body {
+            /* आपका ड्रैगन वॉलपेपर */
             background-image: url('123.jpg'); 
             background-size: cover; 
             background-position: center; 
@@ -25,19 +26,14 @@
             overflow: hidden;
         }
 
-        /* काला बॉक्स पूरी तरह हटा दिया गया है */
+        /* पारदर्शी कंटेंट एरिया - कोई काला डिब्बा नहीं */
         .content-area { text-align: center; z-index: 10; position: relative; }
 
         h1 {
-            font-size: 55px;
+            font-size: 50px;
             margin-bottom: 5px;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8); /* पर्पल जादुई ग्लो */
+            text-shadow: 0 0 20px rgba(0, 251, 255, 0.8);
             transition: 0.5s;
-        }
-
-        h1:hover {
-            color: #bf00ff;
-            text-shadow: 0 0 30px #bf00ff, 0 0 60px #bf00ff;
         }
 
         .btn-wrapper {
@@ -46,37 +42,28 @@
             margin: 20px 0;
         }
 
-        /* जादुई चमक (Sparkle) जो बटन के पीछे से निकलेगी */
-        .magic-sparkle {
+        /* Magical Bokeh इफ़ेक्ट (चमकते गोले) */
+        .bokeh {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            font-size: 80px;
-            color: #ff00ff;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
             opacity: 0;
-            transition: all 0.6s ease-out;
             pointer-events: none;
             z-index: 1;
-            filter: blur(2px);
+            transition: 0.6s ease-out;
         }
 
-        /* कर्सर ले जाने पर जादू जैसा अहसास */
-        .btn-wrapper:hover .magic-sparkle {
-            opacity: 0.8;
-            transform: translate(-50%, -150%) scale(1.5);
-            animation: magic-float 1.5s infinite alternate;
-        }
-
-        @keyframes magic-float {
-            from { text-shadow: 0 0 10px #fff, 0 0 20px #bf00ff; }
-            to { text-shadow: 0 0 20px #fff, 0 0 40px #00fbff; transform: translate(-50%, -160%) scale(1.7); }
-        }
+        /* कर्सर ले जाने पर Bokeh निकलेंगे */
+        .btn-wrapper:hover .bokeh-1 { opacity: 0.6; transform: translate(-80px, -100px) scale(3); background: #00fbff; box-shadow: 0 0 20px #00fbff; }
+        .btn-wrapper:hover .bokeh-2 { opacity: 0.4; transform: translate(100px, -120px) scale(4); background: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
+        .btn-wrapper:hover .bokeh-3 { opacity: 0.5; transform: translate(20px, -150px) scale(2.5); background: #FFD700; box-shadow: 0 0 20px #FFD700; }
 
         .btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05); /* पारदर्शी बटन */
             color: white; 
-            border: 2px solid #bf00ff; /* जादुई पर्पल बॉर्डर */
+            border: 2px solid rgba(0, 251, 255, 0.5); 
             padding: 16px 45px;
             width: 300px;
             border-radius: 50px;
@@ -95,13 +82,14 @@
         }
 
         .btn:hover {
-            background: rgba(191, 0, 255, 0.2);
-            box-shadow: 0 0 30px rgba(191, 0, 255, 0.6);
-            border-color: #fff;
+            background: rgba(0, 251, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 251, 255, 0.4);
+            border-color: #ffffff;
+            transform: translateY(-3px);
         }
 
         /* शेयर सेक्शन */
-        .share-section { margin-top: 60px; }
+        .share-section { margin-top: 50px; text-align: center; }
         .share-icons { display: flex; gap: 30px; justify-content: center; margin-top: 15px; }
         .share-icon-btn {
             color: white;
@@ -110,12 +98,12 @@
             border-radius: 50%;
             display: flex;
             transition: 0.4s;
-            border: 1px solid #bf00ff;
+            border: 1px solid rgba(0, 251, 255, 0.3);
         }
         .share-icon-btn:hover {
-            background: #bf00ff;
-            box-shadow: 0 0 20px #bf00ff;
-            transform: translateY(-5px);
+            background: #00fbff;
+            color: black;
+            box-shadow: 0 0 20px #00fbff;
         }
     </style>
 </head>
@@ -123,10 +111,13 @@
 
 <div class="content-area">
     <h1>AI Maker</h1>
-    <p style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 3px;">MAGICAL BIODATA & RESUME</p>
+    <p style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;">PREMIUM BIODATA & RESUME</p>
 
     <div class="btn-wrapper">
-        <span class="material-symbols-outlined magic-sparkle">auto_fix_high</span> <a href="marriage.html" class="btn">
+        <div class="bokeh bokeh-1" style="top: 50%; left: 50%;"></div>
+        <div class="bokeh bokeh-2" style="top: 50%; left: 50%;"></div>
+        <div class="bokeh bokeh-3" style="top: 50%; left: 50%;"></div>
+        <a href="marriage.html" class="btn">
             <span class="material-symbols-outlined">auto_awesome</span>
             Marriage Biodata
         </a>
@@ -135,16 +126,18 @@
     <br>
 
     <div class="btn-wrapper">
-        <span class="material-symbols-outlined magic-sparkle">auto_fix_normal</span> <a href="job.html" class="btn">
+        <div class="bokeh bokeh-1" style="top: 50%; left: 50%;"></div>
+        <div class="bokeh bokeh-2" style="top: 50%; left: 50%;"></div>
+        <div class="bokeh bokeh-3" style="top: 50%; left: 50%;"></div>
+        <a href="job.html" class="btn">
             <span class="material-symbols-outlined">description</span>
             Create A Resume
         </a>
     </div>
 
     <div class="share-section">
-        <p style="font-size: 11px; letter-spacing: 4px; opacity: 0.6;">SHARE THE MAGIC</p>
         <div class="share-icons">
-            <a href="https://wa.me/?text=Check out this Magical AI Maker!" target="_blank" class="share-icon-btn">
+            <a href="https://wa.me/?text=Check out this AI Maker!" target="_blank" class="share-icon-btn">
                 <span class="material-symbols-outlined">share</span>
             </a>
             <a href="#" onclick="copyLink()" class="share-icon-btn">
@@ -157,7 +150,7 @@
 <script>
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
-        alert("Magic Link Copied! ✨");
+        alert("Magical Link Copied! ✨");
     }
 </script>
 
