@@ -11,8 +11,8 @@
 
     <style>
         body {
-            /* बैकग्राउंड इमेज का नाम यहाँ 'favicon.png' कर दिया गया है क्योंकि आपने फाइल का नाम बदल दिया है */
-            background-image: url('favicon.png'); 
+            /* फोटो फोल्डर के अंदर वाली 123.jpg का उपयोग */
+            background-image: url('photo/123.jpg'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
@@ -25,12 +25,11 @@
             overflow: hidden;
         }
 
-        /* बैकग्राउंड को डार्क करने के लिए ओवरले ताकि बटन साफ़ दिखें */
         body::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.4); 
             z-index: -1;
         }
 
@@ -56,17 +55,14 @@
             text-decoration: none;
         }
 
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4); }
-
         .spark-icon {
             color: #FFD700; 
-            font-size: 24px;
             animation: glow-spark 2s infinite ease-in-out;
         }
 
         @keyframes glow-spark {
             0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 1; }
             100% { transform: scale(1); opacity: 0.8; }
         }
     </style>
@@ -75,10 +71,10 @@
 
 <div class="main-card">
     <h1>
-        <span class="material-symbols-outlined spark-icon">auto_awesome</span>
+        <span class="material-symbols-outlined spark-icon" style="font-size: 30px;">auto_awesome</span>
         AI Maker
     </h1>
-    <p style="font-size: 14px; margin-bottom: 20px; opacity: 0.9;">Professional Biodata & Resume</p>
+    <p>Professional Biodata & Resume</p>
 
     <button class="btn" onclick="location.href='marriage.html'">
         <span class="material-symbols-outlined spark-icon">auto_awesome</span>
