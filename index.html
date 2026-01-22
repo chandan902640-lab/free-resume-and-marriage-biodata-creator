@@ -10,7 +10,6 @@
 
     <style>
         body {
-            /* आपका ड्रैगन वॉलपेपर */
             background-image: url('123.jpg'); 
             background-size: cover; 
             background-position: center; 
@@ -26,14 +25,34 @@
             overflow: hidden;
         }
 
-        /* पारदर्शी कंटेंट एरिया - कोई काला डिब्बा नहीं */
         .content-area { text-align: center; z-index: 10; position: relative; }
+
+        /* Snowfall ke kanon ka design */
+        .snow-particle {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            animation: fall-fade linear forwards;
+        }
+
+        @keyframes fall-fade {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(80px) scale(0);
+                opacity: 0;
+            }
+        }
 
         h1 {
             font-size: 50px;
             margin-bottom: 5px;
             text-shadow: 0 0 20px rgba(0, 251, 255, 0.8);
-            transition: 0.5s;
+            cursor: default;
         }
 
         .btn-wrapper {
@@ -42,11 +61,10 @@
             margin: 20px 0;
         }
 
-        /* Magical Bokeh इफ़ेक्ट (चमकते गोले) */
+        /* Bokeh Effect */
         .bokeh {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             background: white;
             border-radius: 50%;
             opacity: 0;
@@ -55,13 +73,12 @@
             transition: 0.6s ease-out;
         }
 
-        /* कर्सर ले जाने पर Bokeh निकलेंगे */
         .btn-wrapper:hover .bokeh-1 { opacity: 0.6; transform: translate(-80px, -100px) scale(3); background: #00fbff; box-shadow: 0 0 20px #00fbff; }
         .btn-wrapper:hover .bokeh-2 { opacity: 0.4; transform: translate(100px, -120px) scale(4); background: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
         .btn-wrapper:hover .bokeh-3 { opacity: 0.5; transform: translate(20px, -150px) scale(2.5); background: #FFD700; box-shadow: 0 0 20px #FFD700; }
 
         .btn {
-            background: rgba(255, 255, 255, 0.05); /* पारदर्शी बटन */
+            background: rgba(255, 255, 255, 0.05);
             color: white; 
             border: 2px solid rgba(0, 251, 255, 0.5); 
             padding: 16px 45px;
@@ -88,9 +105,7 @@
             transform: translateY(-3px);
         }
 
-        /* शेयर सेक्शन */
-        .share-section { margin-top: 50px; text-align: center; }
-        .share-icons { display: flex; gap: 30px; justify-content: center; margin-top: 15px; }
+        .share-icons { display: flex; gap: 30px; justify-content: center; margin-top: 50px; }
         .share-icon-btn {
             color: white;
             background: rgba(255,255,255,0.1);
@@ -110,10 +125,10 @@
 <body>
 
 <div class="content-area">
-    <h1>AI Maker</h1>
-    <p style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;">PREMIUM BIODATA & RESUME</p>
+    <h1 class="snow-trigger">AI Maker</h1>
+    <p class="snow-trigger" style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;">PREMIUM BIODATA & RESUME</p>
 
-    <div class="btn-wrapper">
+    <div class="btn-wrapper snow-trigger">
         <div class="bokeh bokeh-1" style="top: 50%; left: 50%;"></div>
         <div class="bokeh bokeh-2" style="top: 50%; left: 50%;"></div>
         <div class="bokeh bokeh-3" style="top: 50%; left: 50%;"></div>
@@ -125,7 +140,7 @@
 
     <br>
 
-    <div class="btn-wrapper">
+    <div class="btn-wrapper snow-trigger">
         <div class="bokeh bokeh-1" style="top: 50%; left: 50%;"></div>
         <div class="bokeh bokeh-2" style="top: 50%; left: 50%;"></div>
         <div class="bokeh bokeh-3" style="top: 50%; left: 50%;"></div>
@@ -148,9 +163,43 @@
 </div>
 
 <script>
+    // Copy function
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
         alert("Magical Link Copied! ✨");
+    }
+
+    // Snowfall effect logic
+    const triggers = document.querySelectorAll('.snow-trigger');
+
+    triggers.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            createSnow(e.clientX, e.clientY);
+        });
+    });
+
+    function createSnow(x, y) {
+        const particle = document.createElement('div');
+        particle.classList.add('snow-particle');
+        
+        // Particle size random (2px to 5px)
+        const size = Math.random() * 4 + 2 + 'px';
+        particle.style.width = size;
+        particle.style.height = size;
+
+        // Position set karein
+        particle.style.left = x + (Math.random() - 0.5) * 20 + 'px';
+        particle.style.top = y + 'px';
+
+        // Animation duration random
+        particle.style.animationDuration = Math.random() * 0.8 + 0.5 + 's';
+
+        document.body.appendChild(particle);
+
+        // Niche girne ke baad delete kar dein
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
     }
 </script>
 
