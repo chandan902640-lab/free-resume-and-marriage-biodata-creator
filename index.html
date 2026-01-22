@@ -25,19 +25,19 @@
             overflow: hidden;
         }
 
-        /* पारदर्शी कंटेंट एरिया */
+        /* काला बॉक्स पूरी तरह हटा दिया गया है */
         .content-area { text-align: center; z-index: 10; position: relative; }
 
         h1 {
-            font-size: 50px;
+            font-size: 55px;
             margin-bottom: 5px;
-            text-shadow: 0 0 15px rgba(0, 251, 255, 0.6);
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8); /* पर्पल जादुई ग्लो */
             transition: 0.5s;
         }
 
         h1:hover {
-            color: #00fbff;
-            text-shadow: 0 0 25px #00fbff, 0 0 50px #00fbff;
+            color: #bf00ff;
+            text-shadow: 0 0 30px #bf00ff, 0 0 60px #bf00ff;
         }
 
         .btn-wrapper {
@@ -46,36 +46,37 @@
             margin: 20px 0;
         }
 
-        /* असली उड़ने वाला ड्रैगन एनीमेशन */
-        .dragon-animation {
+        /* जादुई चमक (Sparkle) जो बटन के पीछे से निकलेगी */
+        .magic-sparkle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 180px;
+            font-size: 80px;
+            color: #ff00ff;
             opacity: 0;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.6s ease-out;
             pointer-events: none;
             z-index: 1;
-            filter: drop-shadow(0 0 15px #00fbff);
+            filter: blur(2px);
         }
 
-        /* कर्सर ले जाने पर ड्रैगन 'उड़ता' हुआ बाहर आएगा */
-        .btn-wrapper:hover .dragon-animation {
-            opacity: 1;
-            transform: translate(-50%, -160%) scale(1.4) rotate(-5deg);
-            animation: dragon-float 2s infinite ease-in-out 0.6s;
+        /* कर्सर ले जाने पर जादू जैसा अहसास */
+        .btn-wrapper:hover .magic-sparkle {
+            opacity: 0.8;
+            transform: translate(-50%, -150%) scale(1.5);
+            animation: magic-float 1.5s infinite alternate;
         }
 
-        @keyframes dragon-float {
-            0%, 100% { transform: translate(-50%, -160%) scale(1.4) rotate(-5deg); }
-            50% { transform: translate(-50%, -175%) scale(1.45) rotate(2deg); }
+        @keyframes magic-float {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #bf00ff; }
+            to { text-shadow: 0 0 20px #fff, 0 0 40px #00fbff; transform: translate(-50%, -160%) scale(1.7); }
         }
 
         .btn {
             background: rgba(255, 255, 255, 0.05);
             color: white; 
-            border: 2px solid #00fbff; 
+            border: 2px solid #bf00ff; /* जादुई पर्पल बॉर्डर */
             padding: 16px 45px;
             width: 300px;
             border-radius: 50px;
@@ -88,19 +89,19 @@
             gap: 12px; 
             transition: 0.4s;
             text-decoration: none;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             position: relative;
             z-index: 2;
         }
 
         .btn:hover {
-            background: rgba(0, 251, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 251, 255, 0.5);
-            transform: translateY(-3px);
+            background: rgba(191, 0, 255, 0.2);
+            box-shadow: 0 0 30px rgba(191, 0, 255, 0.6);
+            border-color: #fff;
         }
 
         /* शेयर सेक्शन */
-        .share-section { margin-top: 50px; text-align: center; }
+        .share-section { margin-top: 60px; }
         .share-icons { display: flex; gap: 30px; justify-content: center; margin-top: 15px; }
         .share-icon-btn {
             color: white;
@@ -109,13 +110,12 @@
             border-radius: 50%;
             display: flex;
             transition: 0.4s;
-            border: 1px solid rgba(0, 251, 255, 0.4);
+            border: 1px solid #bf00ff;
         }
         .share-icon-btn:hover {
-            background: #00fbff;
-            color: black;
-            box-shadow: 0 0 20px #00fbff;
-            transform: scale(1.2);
+            background: #bf00ff;
+            box-shadow: 0 0 20px #bf00ff;
+            transform: translateY(-5px);
         }
     </style>
 </head>
@@ -123,11 +123,10 @@
 
 <div class="content-area">
     <h1>AI Maker</h1>
-    <p style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;">Professional Biodata & Resume</p>
+    <p style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 3px;">MAGICAL BIODATA & RESUME</p>
 
     <div class="btn-wrapper">
-        <img src="favicon.png" class="dragon-animation" alt="Dragon">
-        <a href="marriage.html" class="btn">
+        <span class="material-symbols-outlined magic-sparkle">auto_fix_high</span> <a href="marriage.html" class="btn">
             <span class="material-symbols-outlined">auto_awesome</span>
             Marriage Biodata
         </a>
@@ -136,17 +135,16 @@
     <br>
 
     <div class="btn-wrapper">
-        <img src="favicon.png" class="dragon-animation" alt="Dragon">
-        <a href="job.html" class="btn">
+        <span class="material-symbols-outlined magic-sparkle">auto_fix_normal</span> <a href="job.html" class="btn">
             <span class="material-symbols-outlined">description</span>
             Create A Resume
         </a>
     </div>
 
     <div class="share-section">
-        <p style="font-size: 11px; letter-spacing: 4px;">SHARE WITH WORLD</p>
+        <p style="font-size: 11px; letter-spacing: 4px; opacity: 0.6;">SHARE THE MAGIC</p>
         <div class="share-icons">
-            <a href="https://wa.me/?text=Check out this AI Maker!" target="_blank" class="share-icon-btn">
+            <a href="https://wa.me/?text=Check out this Magical AI Maker!" target="_blank" class="share-icon-btn">
                 <span class="material-symbols-outlined">share</span>
             </a>
             <a href="#" onclick="copyLink()" class="share-icon-btn">
@@ -159,7 +157,7 @@
 <script>
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
-        alert("Link Copied! 🐉");
+        alert("Magic Link Copied! ✨");
     }
 </script>
 
