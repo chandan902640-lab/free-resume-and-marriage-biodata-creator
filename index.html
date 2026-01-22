@@ -25,18 +25,19 @@
             overflow: hidden;
         }
 
-        .content-area { text-align: center; z-index: 10; }
+        /* पारदर्शी कंटेंट एरिया */
+        .content-area { text-align: center; z-index: 10; position: relative; }
 
         h1 {
             font-size: 50px;
             margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 251, 255, 0.6);
             transition: 0.5s;
-            text-shadow: 2px 2px 15px rgba(0,0,0,0.7);
         }
 
         h1:hover {
             color: #00fbff;
-            text-shadow: 0 0 20px #00fbff, 0 0 40px #00fbff;
+            text-shadow: 0 0 25px #00fbff, 0 0 50px #00fbff;
         }
 
         .btn-wrapper {
@@ -45,27 +46,34 @@
             margin: 20px 0;
         }
 
-        /* Flying Dragon GIF Animation */
-        .dragon-fly {
+        /* असली उड़ने वाला ड्रैगन एनीमेशन */
+        .dragon-animation {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.1);
-            width: 200px; /* Size adjust kar sakte hain */
+            transform: translate(-50%, -50%) scale(0);
+            width: 180px;
             opacity: 0;
-            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
             z-index: 1;
+            filter: drop-shadow(0 0 15px #00fbff);
         }
 
-        /* Hover karne par dragon sach mein bahar niklega */
-        .btn-wrapper:hover .dragon-fly {
+        /* कर्सर ले जाने पर ड्रैगन 'उड़ता' हुआ बाहर आएगा */
+        .btn-wrapper:hover .dragon-animation {
             opacity: 1;
-            transform: translate(-50%, -150%) scale(1.5) rotate(-10deg);
+            transform: translate(-50%, -160%) scale(1.4) rotate(-5deg);
+            animation: dragon-float 2s infinite ease-in-out 0.6s;
+        }
+
+        @keyframes dragon-float {
+            0%, 100% { transform: translate(-50%, -160%) scale(1.4) rotate(-5deg); }
+            50% { transform: translate(-50%, -175%) scale(1.45) rotate(2deg); }
         }
 
         .btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: white; 
             border: 2px solid #00fbff; 
             padding: 16px 45px;
@@ -80,33 +88,34 @@
             gap: 12px; 
             transition: 0.4s;
             text-decoration: none;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             position: relative;
             z-index: 2;
         }
 
         .btn:hover {
             background: rgba(0, 251, 255, 0.2);
-            box-shadow: 0 0 25px #00fbff, inset 0 0 10px #00fbff;
-            border-color: #ffffff;
+            box-shadow: 0 0 30px rgba(0, 251, 255, 0.5);
+            transform: translateY(-3px);
         }
 
-        .share-section { margin-top: 60px; }
-        .share-icons { display: flex; gap: 25px; justify-content: center; margin-top: 15px; }
+        /* शेयर सेक्शन */
+        .share-section { margin-top: 50px; text-align: center; }
+        .share-icons { display: flex; gap: 30px; justify-content: center; margin-top: 15px; }
         .share-icon-btn {
             color: white;
-            background: rgba(255,255,255,0.15);
-            padding: 14px;
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
             border-radius: 50%;
             display: flex;
             transition: 0.4s;
-            border: 1px solid rgba(0, 251, 255, 0.3);
+            border: 1px solid rgba(0, 251, 255, 0.4);
         }
         .share-icon-btn:hover {
             background: #00fbff;
             color: black;
             box-shadow: 0 0 20px #00fbff;
-            transform: translateY(-5px);
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -114,10 +123,10 @@
 
 <div class="content-area">
     <h1>AI Maker</h1>
-    <p style="margin-bottom: 40px; font-size: 18px; letter-spacing: 1px;">PREMIUM BIODATA SERVICES</p>
+    <p style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;">Professional Biodata & Resume</p>
 
     <div class="btn-wrapper">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6eXN6eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpx4wG38fSdq/giphy.gif" class="dragon-fly">
+        <img src="favicon.png" class="dragon-animation" alt="Dragon">
         <a href="marriage.html" class="btn">
             <span class="material-symbols-outlined">auto_awesome</span>
             Marriage Biodata
@@ -127,7 +136,7 @@
     <br>
 
     <div class="btn-wrapper">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6eXN6eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpx4wG38fSdq/giphy.gif" class="dragon-fly">
+        <img src="favicon.png" class="dragon-animation" alt="Dragon">
         <a href="job.html" class="btn">
             <span class="material-symbols-outlined">description</span>
             Create A Resume
@@ -135,9 +144,9 @@
     </div>
 
     <div class="share-section">
-        <p style="font-size: 13px; letter-spacing: 3px; opacity: 0.8;">SHARE WITH WORLD</p>
+        <p style="font-size: 11px; letter-spacing: 4px;">SHARE WITH WORLD</p>
         <div class="share-icons">
-            <a href="https://wa.me/?text=Check out this awesome AI Maker!" target="_blank" class="share-icon-btn">
+            <a href="https://wa.me/?text=Check out this AI Maker!" target="_blank" class="share-icon-btn">
                 <span class="material-symbols-outlined">share</span>
             </a>
             <a href="#" onclick="copyLink()" class="share-icon-btn">
@@ -150,7 +159,7 @@
 <script>
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
-        alert("Link Copied! Dragon energy shared! 🐉");
+        alert("Link Copied! 🐉");
     }
 </script>
 
