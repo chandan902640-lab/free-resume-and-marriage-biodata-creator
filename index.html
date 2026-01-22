@@ -28,10 +28,10 @@
         .content-area { text-align: center; z-index: 10; }
 
         h1 {
-            font-size: 45px;
+            font-size: 50px;
             margin-bottom: 5px;
             transition: 0.5s;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.7);
         }
 
         h1:hover {
@@ -39,75 +39,74 @@
             text-shadow: 0 0 20px #00fbff, 0 0 40px #00fbff;
         }
 
-        /* बटन कंटेनर ड्रैगन इमेज के लिए */
         .btn-wrapper {
             position: relative;
             display: inline-block;
-            margin: 15px 0;
+            margin: 20px 0;
+        }
+
+        /* Flying Dragon GIF Animation */
+        .dragon-fly {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            width: 200px; /* Size adjust kar sakte hain */
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Hover karne par dragon sach mein bahar niklega */
+        .btn-wrapper:hover .dragon-fly {
+            opacity: 1;
+            transform: translate(-50%, -150%) scale(1.5) rotate(-10deg);
         }
 
         .btn {
             background: rgba(255, 255, 255, 0.1);
             color: white; 
-            border: 2px solid #0077ff; 
-            padding: 15px 40px;
-            width: 280px;
+            border: 2px solid #00fbff; 
+            padding: 16px 45px;
+            width: 300px;
             border-radius: 50px;
-            font-size: 18px; 
+            font-size: 20px; 
             font-weight: bold;
             cursor: pointer; 
             display: flex; 
             align-items: center;
             justify-content: center; 
-            gap: 10px; 
+            gap: 12px; 
             transition: 0.4s;
             text-decoration: none;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             position: relative;
             z-index: 2;
         }
 
-        /* बटन के पीछे छिपा हुआ ड्रैगन */
-        .dragon-hidden {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            width: 150px;
-            opacity: 0;
-            transition: 0.6s ease-in-out;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* कर्सर ले जाने पर ड्रैगन बाहर निकलेगा */
-        .btn-wrapper:hover .dragon-hidden {
-            opacity: 0.8;
-            transform: translate(-50%, -120%) scale(1.2); /* ड्रैगन ऊपर की तरफ निकलेगा */
-            filter: drop-shadow(0 0 15px #00fbff);
-        }
-
         .btn:hover {
-            background: #0077ff;
-            box-shadow: 0 0 20px #0077ff, 0 0 50px #0077ff;
+            background: rgba(0, 251, 255, 0.2);
+            box-shadow: 0 0 25px #00fbff, inset 0 0 10px #00fbff;
+            border-color: #ffffff;
         }
 
-        /* शेयर सेक्शन */
-        .share-section { margin-top: 50px; text-align: center; }
-        .share-icons { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
+        .share-section { margin-top: 60px; }
+        .share-icons { display: flex; gap: 25px; justify-content: center; margin-top: 15px; }
         .share-icon-btn {
             color: white;
-            background: rgba(255,255,255,0.1);
-            padding: 12px;
+            background: rgba(255,255,255,0.15);
+            padding: 14px;
             border-radius: 50%;
             display: flex;
-            transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.3);
+            transition: 0.4s;
+            border: 1px solid rgba(0, 251, 255, 0.3);
         }
         .share-icon-btn:hover {
-            background: #FFD700;
+            background: #00fbff;
             color: black;
-            box-shadow: 0 0 15px #FFD700;
+            box-shadow: 0 0 20px #00fbff;
+            transform: translateY(-5px);
         }
     </style>
 </head>
@@ -115,10 +114,11 @@
 
 <div class="content-area">
     <h1>AI Maker</h1>
-    <p style="margin-bottom: 30px;">Professional Biodata & Resume</p>
+    <p style="margin-bottom: 40px; font-size: 18px; letter-spacing: 1px;">PREMIUM BIODATA SERVICES</p>
 
     <div class="btn-wrapper">
-        <img src="favicon.png" class="dragon-hidden" alt="Dragon"> <a href="marriage.html" class="btn">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6eXN6eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpx4wG38fSdq/giphy.gif" class="dragon-fly">
+        <a href="marriage.html" class="btn">
             <span class="material-symbols-outlined">auto_awesome</span>
             Marriage Biodata
         </a>
@@ -127,16 +127,17 @@
     <br>
 
     <div class="btn-wrapper">
-        <img src="favicon.png" class="dragon-hidden" alt="Dragon"> <a href="job.html" class="btn">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6eXN6eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpx4wG38fSdq/giphy.gif" class="dragon-fly">
+        <a href="job.html" class="btn">
             <span class="material-symbols-outlined">description</span>
             Create A Resume
         </a>
     </div>
 
     <div class="share-section">
-        <p style="font-size: 12px; letter-spacing: 2px;">SHARE APP</p>
+        <p style="font-size: 13px; letter-spacing: 3px; opacity: 0.8;">SHARE WITH WORLD</p>
         <div class="share-icons">
-            <a href="https://wa.me/?text=Check out this AI Maker!" target="_blank" class="share-icon-btn">
+            <a href="https://wa.me/?text=Check out this awesome AI Maker!" target="_blank" class="share-icon-btn">
                 <span class="material-symbols-outlined">share</span>
             </a>
             <a href="#" onclick="copyLink()" class="share-icon-btn">
@@ -149,7 +150,7 @@
 <script>
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
-        alert("Link Copied! अब आप इसे कहीं भी शेयर कर सकते हैं।");
+        alert("Link Copied! Dragon energy shared! 🐉");
     }
 </script>
 
