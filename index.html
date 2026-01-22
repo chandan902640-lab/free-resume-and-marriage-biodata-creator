@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Marriage Biodata & Resume Maker</title>
+    <title>Marriage & Resume Maker</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
@@ -16,36 +16,61 @@
             margin: 0; display: flex; justify-content: center; align-items: center;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
+
         .main-card {
-            background: rgba(0, 0, 0, 0.7); padding: 40px; border-radius: 20px;
+            background: rgba(0, 0, 0, 0.75); padding: 40px; border-radius: 20px;
             text-align: center; color: white; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             max-width: 400px; width: 90%; border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
         }
-        h1 { color: #2ecc71; margin-bottom: 10px; }
+
+        h1 { color: #2ecc71; margin-bottom: 10px; font-size: 28px; }
+
         .btn {
-            background: #00bfff; color: white; border: none; padding: 15px 25px;
-            width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold;
-            margin: 10px 0; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; gap: 10px; transition: 0.3s;
+            background: linear-gradient(45deg, #00bfff, #0077ff);
+            color: white; border: none; padding: 15px 25px;
+            width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold;
+            margin: 15px 0; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 12px; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
         }
-        .btn:hover { background: #0099cc; transform: translateY(-2px); }
-        .spark-icon { color: #FFD700; font-size: 24px; } /* गोल्डन स्पार्क */
+
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 191, 255, 0.5);
+        }
+
+        /* --- Sparkle Animation (सितारा चमकने के लिए) --- */
+        .spark-icon {
+            color: #FFD700; 
+            font-size: 28px;
+            animation: glow-spark 2s infinite ease-in-out;
+        }
+
+        @keyframes glow-spark {
+            0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 2px #FFD700); }
+            50% { transform: scale(1.3) rotate(15deg); opacity: 1; filter: drop-shadow(0 0 8px #FFD700); }
+            100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 2px #FFD700); }
+        }
     </style>
 </head>
 <body>
 
 <div class="main-card">
-    <h1>Marriage & Resume Maker</h1>
-    <p>अपना बायोडाटा आसानी से बनाने के लिए चुनें:</p>
+    <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <span class="material-symbols-outlined spark-icon">auto_awesome</span>
+        AI Maker
+    </h1>
+    <p>अपना बायोडाटा आसानी से तैयार करें:</p>
 
     <button class="btn" onclick="location.href='marriage.html'">
         <span class="material-symbols-outlined spark-icon">auto_awesome</span>
-        🤵‍♀️🤵 Marriage Biodata
+        Marriage Biodata
     </button>
 
     <button class="btn" onclick="location.href='job.html'">
         <span class="material-symbols-outlined spark-icon">auto_awesome</span>
-        📜 Create A Resume
+        Create A Resume
     </button>
 </div>
 
