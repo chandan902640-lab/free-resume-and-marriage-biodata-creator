@@ -2,19 +2,22 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>free Marriage & Resume creator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Free Marriage & Resume Creator</title>
     
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <style>
+        * { box-sizing: border-box; }
+        
         body {
             background-image: url('123.jpg'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
             height: 100vh;
+            width: 100vw;
             margin: 0; 
             display: flex; 
             flex-direction: column;
@@ -22,12 +25,17 @@
             align-items: center;
             font-family: 'Segoe UI', Arial, sans-serif;
             color: white;
-            overflow: hidden;
+            overflow: hidden; /* Screen se bahar na jaye */
         }
 
-        .content-area { text-align: center; z-index: 10; position: relative; }
+        .content-area { 
+            text-align: center; 
+            z-index: 10; 
+            position: relative; 
+            width: 100%;
+            padding: 20px;
+        }
 
-        /* Sirf White Snowfall Particles */
         .snow-particle {
             position: fixed;
             background: white;
@@ -43,68 +51,76 @@
         }
 
         h1 {
-            font-size: 50px;
-            font-weight: 900; /* Text ko bold rakha hai */
+            font-size: clamp(30px, 8vw, 50px); /* Mobile par apne aap chota hoga */
+            font-weight: 900;
             margin-bottom: 5px;
             text-shadow: 0 0 20px rgba(0, 251, 255, 0.8);
+        }
+
+        .instruction-text {
+            font-size: clamp(14px, 4vw, 18px);
+            margin-bottom: 30px; 
+            opacity: 0.9; 
+            letter-spacing: 1px;
         }
 
         .btn-wrapper {
             position: relative;
             display: inline-block;
-            margin: 20px 0;
+            margin: 15px 0;
+            width: 100%;
+            max-width: 320px;
         }
 
         .btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
             color: white; 
             border: 2px solid rgba(0, 251, 255, 0.5); 
-            padding: 16px 45px;
-            width: 300px;
+            padding: 14px 20px;
+            width: 100%; /* Mobile par full width */
             border-radius: 50px;
-            font-size: 20px; 
+            font-size: 18px; 
             font-weight: bold;
             cursor: pointer; 
             display: flex; 
             align-items: center;
             justify-content: center; 
-            gap: 12px; 
+            gap: 10px; 
             transition: 0.4s;
             text-decoration: none;
-            backdrop-filter: blur(12px);
-            position: relative;
-            z-index: 2;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .btn:hover {
+        .btn:active, .btn:hover {
             background: rgba(0, 251, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 251, 255, 0.4);
-            border-color: #ffffff;
-            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 251, 255, 0.4);
+            transform: scale(0.98);
         }
 
-        .share-icons { display: flex; gap: 30px; justify-content: center; margin-top: 50px; }
+        .share-icons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        
         .share-icon-btn {
             color: white;
             background: rgba(255,255,255,0.1);
-            padding: 12px;
+            padding: 15px;
             border-radius: 50%;
             display: flex;
             transition: 0.4s;
             border: 1px solid rgba(0, 251, 255, 0.3);
+            text-decoration: none;
         }
-        .share-icon-btn:hover {
-            background: #00fbff;
-            color: black;
-            box-shadow: 0 0 20px #00fbff;
-        }
+
+        .share-icon-btn:active { background: #00fbff; color: black; }
     </style>
 </head>
 <body>
 
 <div class="content-area">
-    <h1 class="snow-trigger">free Marriage & Resume creator </h1>
-    <p class="snow-trigger" style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;"><b></b>बायोडाटा बनाने के लिए नीचे दिए किसी एक बटन को टच करे</b></p>
+    <h1 class="snow-trigger">Free Marriage & Resume Creator</h1>
+    <p class="snow-trigger instruction-text">
+        <b>बायोडाटा बनाने के लिए नीचे दिए किसी एक बटन को टच करे</b>
+    </p>
 
     <div class="btn-wrapper snow-trigger">
         <a href="marriage.html" class="btn">
@@ -112,8 +128,6 @@
             Marriage Biodata
         </a>
     </div>
-
-    <br>
 
     <div class="btn-wrapper snow-trigger">
         <a href="job.html" class="btn">
@@ -124,10 +138,10 @@
 
     <div class="share-section">
         <div class="share-icons">
-            <a href="https://wa.me/?text=Check out this AI Maker!" target="_blank" class="share-icon-btn">
+            <a href="#" id="waShare" target="_blank" class="share-icon-btn">
                 <span class="material-symbols-outlined">share</span>
             </a>
-            <a href="#" onclick="copyLink()" class="share-icon-btn">
+            <a href="javascript:void(0)" onclick="copyLink()" class="share-icon-btn">
                 <span class="material-symbols-outlined">content_copy</span>
             </a>
         </div>
@@ -135,32 +149,52 @@
 </div>
 
 <script>
+    // 1. WhatsApp Share Link Update
+    const waBtn = document.getElementById('waShare');
+    const pageUrl = window.location.href;
+    waBtn.href = "https://wa.me/?text=" + encodeURIComponent("Check out this Free AI Maker: " + pageUrl);
+
+    // 2. Copy Link Function
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
-        alert("Magical Link Copied! ✨");
+        alert("Link Copied! ✨");
     }
 
-    // Snowfall logic (Sirf white particles)
+    // 3. Snowfall Logic (Desktop + Mobile)
     const triggers = document.querySelectorAll('.snow-trigger');
+
+    function handleInput(e) {
+        let x, y;
+        if (e.type === 'mousemove') {
+            x = e.clientX;
+            y = e.clientY;
+        } else if (e.type === 'touchmove') {
+            x = e.touches[0].clientX;
+            y = e.touches[0].clientY;
+        }
+        
+        for(let i=0; i<2; i++) {
+            createSnow(x, y);
+        }
+    }
+
     triggers.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            for(let i=0; i<2; i++) { // Ek baar mein 2 kan niklenge taaki asar achha dikhe
-                createSnow(e.clientX, e.clientY);
-            }
-        });
+        el.addEventListener('mousemove', handleInput);
+        el.addEventListener('touchmove', handleInput, {passive: true});
     });
 
     function createSnow(x, y) {
+        if(!x || !y) return;
         const particle = document.createElement('div');
         particle.classList.add('snow-particle');
-        const size = Math.random() * 4 + 2 + 'px';
+        const size = Math.random() * 5 + 2 + 'px';
         particle.style.width = size;
         particle.style.height = size;
         particle.style.left = x + (Math.random() - 0.5) * 30 + 'px';
         particle.style.top = y + 'px';
-        particle.style.animationDuration = Math.random() * 0.8 + 0.4 + 's';
+        particle.style.animationDuration = Math.random() * 0.7 + 0.3 + 's';
         document.body.appendChild(particle);
-        setTimeout(() => { particle.remove(); }, 1000);
+        setTimeout(() => { particle.remove(); }, 800);
     }
 </script>
 
