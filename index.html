@@ -25,37 +25,27 @@
             overflow: hidden;
         }
 
-        .content-area {
-            text-align: center; 
-            z-index: 10;
-        }
+        .content-area { text-align: center; z-index: 10; }
 
-        /* टेक्स्ट पर ग्लो इफेक्ट */
         h1 {
             font-size: 45px;
             margin-bottom: 5px;
-            cursor: default;
             transition: 0.5s;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         h1:hover {
             color: #00fbff;
-            text-shadow: 0 0 20px #00fbff, 0 0 40px #00fbff; /* कर्सर ले जाने पर लाइट जलेगी */
+            text-shadow: 0 0 20px #00fbff, 0 0 40px #00fbff;
         }
 
-        .subtitle {
-            margin-bottom: 30px;
-            font-size: 18px;
-            transition: 0.5s;
+        /* बटन कंटेनर ड्रैगन इमेज के लिए */
+        .btn-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 15px 0;
         }
 
-        .subtitle:hover {
-            color: #ff00ff;
-            text-shadow: 0 0 15px #ff00ff;
-        }
-
-        /* बटनों के लिए नियन लाइट इफेक्ट */
         .btn {
             background: rgba(255, 255, 255, 0.1);
             color: white; 
@@ -65,7 +55,6 @@
             border-radius: 50px;
             font-size: 18px; 
             font-weight: bold;
-            margin: 15px 0; 
             cursor: pointer; 
             display: flex; 
             align-items: center;
@@ -74,27 +63,38 @@
             transition: 0.4s;
             text-decoration: none;
             backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* बटन के पीछे छिपा हुआ ड्रैगन */
+        .dragon-hidden {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 150px;
+            opacity: 0;
+            transition: 0.6s ease-in-out;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* कर्सर ले जाने पर ड्रैगन बाहर निकलेगा */
+        .btn-wrapper:hover .dragon-hidden {
+            opacity: 0.8;
+            transform: translate(-50%, -120%) scale(1.2); /* ड्रैगन ऊपर की तरफ निकलेगा */
+            filter: drop-shadow(0 0 15px #00fbff);
         }
 
         .btn:hover {
             background: #0077ff;
-            box-shadow: 0 0 20px #0077ff, 0 0 50px #0077ff; /* बटन के चारों तरफ लाइट */
-            transform: translateY(-5px);
+            box-shadow: 0 0 20px #0077ff, 0 0 50px #0077ff;
         }
 
         /* शेयर सेक्शन */
-        .share-section {
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        .share-icons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
+        .share-section { margin-top: 50px; text-align: center; }
+        .share-icons { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
         .share-icon-btn {
             color: white;
             background: rgba(255,255,255,0.1);
@@ -104,7 +104,6 @@
             transition: 0.3s;
             border: 1px solid rgba(255,255,255,0.3);
         }
-
         .share-icon-btn:hover {
             background: #FFD700;
             color: black;
@@ -116,17 +115,23 @@
 
 <div class="content-area">
     <h1>AI Maker</h1>
-    <p class="subtitle">Professional Biodata & Resume</p>
+    <p style="margin-bottom: 30px;">Professional Biodata & Resume</p>
 
-    <a href="marriage.html" class="btn">
-        <span class="material-symbols-outlined">auto_awesome</span>
-        Marriage Biodata
-    </a>
+    <div class="btn-wrapper">
+        <img src="favicon.png" class="dragon-hidden" alt="Dragon"> <a href="marriage.html" class="btn">
+            <span class="material-symbols-outlined">auto_awesome</span>
+            Marriage Biodata
+        </a>
+    </div>
 
-    <a href="job.html" class="btn">
-        <span class="material-symbols-outlined">description</span>
-        Create A Resume
-    </a>
+    <br>
+
+    <div class="btn-wrapper">
+        <img src="favicon.png" class="dragon-hidden" alt="Dragon"> <a href="job.html" class="btn">
+            <span class="material-symbols-outlined">description</span>
+            Create A Resume
+        </a>
+    </div>
 
     <div class="share-section">
         <p style="font-size: 12px; letter-spacing: 2px;">SHARE APP</p>
