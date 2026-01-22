@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marriage & Resume Maker</title>
+    <title>free Marriage & Resume creator</title>
     
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -27,7 +27,7 @@
 
         .content-area { text-align: center; z-index: 10; position: relative; }
 
-        /* Snowfall ke kanon ka design */
+        /* Sirf White Snowfall Particles */
         .snow-particle {
             position: fixed;
             background: white;
@@ -38,21 +38,15 @@
         }
 
         @keyframes fall-fade {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(80px) scale(0);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(80px) scale(0); opacity: 0; }
         }
 
         h1 {
             font-size: 50px;
+            font-weight: 900; /* Text ko bold rakha hai */
             margin-bottom: 5px;
             text-shadow: 0 0 20px rgba(0, 251, 255, 0.8);
-            cursor: default;
         }
 
         .btn-wrapper {
@@ -60,22 +54,6 @@
             display: inline-block;
             margin: 20px 0;
         }
-
-        /* Bokeh Effect */
-        .bokeh {
-            position: absolute;
-            width: 10px; height: 10px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 1;
-            transition: 0.6s ease-out;
-        }
-
-        .btn-wrapper:hover .bokeh-1 { opacity: 0.6; transform: translate(-80px, -100px) scale(3); background: #00fbff; box-shadow: 0 0 20px #00fbff; }
-        .btn-wrapper:hover .bokeh-2 { opacity: 0.4; transform: translate(100px, -120px) scale(4); background: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
-        .btn-wrapper:hover .bokeh-3 { opacity: 0.5; transform: translate(20px, -150px) scale(2.5); background: #FFD700; box-shadow: 0 0 20px #FFD700; }
 
         .btn {
             background: rgba(255, 255, 255, 0.05);
@@ -125,13 +103,10 @@
 <body>
 
 <div class="content-area">
-    <h1 class="snow-trigger">AI Maker</h1>
-    <p class="snow-trigger" style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;">PREMIUM BIODATA & RESUME</p>
+    <h1 class="snow-trigger">free Marriage & Resume creator </h1>
+    <p class="snow-trigger" style="margin-bottom: 40px; opacity: 0.8; letter-spacing: 2px;"><b></b>बायोडाटा बनाने के लिए नीचे दिए किसी एक बटन को टच करे</b></p>
 
     <div class="btn-wrapper snow-trigger">
-        <div class="bokeh bokeh-1" style="top: 50%; left: 50%;"></div>
-        <div class="bokeh bokeh-2" style="top: 50%; left: 50%;"></div>
-        <div class="bokeh bokeh-3" style="top: 50%; left: 50%;"></div>
         <a href="marriage.html" class="btn">
             <span class="material-symbols-outlined">auto_awesome</span>
             Marriage Biodata
@@ -141,9 +116,6 @@
     <br>
 
     <div class="btn-wrapper snow-trigger">
-        <div class="bokeh bokeh-1" style="top: 50%; left: 50%;"></div>
-        <div class="bokeh bokeh-2" style="top: 50%; left: 50%;"></div>
-        <div class="bokeh bokeh-3" style="top: 50%; left: 50%;"></div>
         <a href="job.html" class="btn">
             <span class="material-symbols-outlined">description</span>
             Create A Resume
@@ -163,43 +135,32 @@
 </div>
 
 <script>
-    // Copy function
     function copyLink() {
         navigator.clipboard.writeText(window.location.href);
         alert("Magical Link Copied! ✨");
     }
 
-    // Snowfall effect logic
+    // Snowfall logic (Sirf white particles)
     const triggers = document.querySelectorAll('.snow-trigger');
-
     triggers.forEach(el => {
         el.addEventListener('mousemove', (e) => {
-            createSnow(e.clientX, e.clientY);
+            for(let i=0; i<2; i++) { // Ek baar mein 2 kan niklenge taaki asar achha dikhe
+                createSnow(e.clientX, e.clientY);
+            }
         });
     });
 
     function createSnow(x, y) {
         const particle = document.createElement('div');
         particle.classList.add('snow-particle');
-        
-        // Particle size random (2px to 5px)
         const size = Math.random() * 4 + 2 + 'px';
         particle.style.width = size;
         particle.style.height = size;
-
-        // Position set karein
-        particle.style.left = x + (Math.random() - 0.5) * 20 + 'px';
+        particle.style.left = x + (Math.random() - 0.5) * 30 + 'px';
         particle.style.top = y + 'px';
-
-        // Animation duration random
-        particle.style.animationDuration = Math.random() * 0.8 + 0.5 + 's';
-
+        particle.style.animationDuration = Math.random() * 0.8 + 0.4 + 's';
         document.body.appendChild(particle);
-
-        // Niche girne ke baad delete kar dein
-        setTimeout(() => {
-            particle.remove();
-        }, 1000);
+        setTimeout(() => { particle.remove(); }, 1000);
     }
 </script>
 
