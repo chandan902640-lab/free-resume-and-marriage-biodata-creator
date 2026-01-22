@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Free resume &  Marriage biodata  Creator</title>
+    
+    <title>Free Marriage Biodata & Resume Creator | Online Tool</title>
+    <meta name="description" content="Muft mein apna Marriage Biodata aur Professional Resume banayein. Best online tool for marriage biodata creation and job resumes.">
+    <meta name="keywords" content="marriage biodata maker, free resume builder, online biodata creator, shadi ke liye biodata, resume kaise banaye">
+    <meta name="author" content="AI Maker">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Free Marriage & Resume Creator">
+    <meta property="og:description" content="Sirf 2 minute mein professional biodata aur resume banayein.">
+    <meta property="og:image" content="favicon.png">
     
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -16,16 +25,18 @@
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             margin: 0; 
             display: flex; 
             flex-direction: column;
-            justify-content: center; 
+            /* Content ko upar lane ke liye center ki jagah flex-start kiya hai */
+            justify-content: flex-start; 
+            padding-top: 60px; 
             align-items: center;
             font-family: 'Segoe UI', Arial, sans-serif;
             color: white;
-            overflow: hidden; /* Screen se bahar na jaye */
+            overflow-x: hidden;
         }
 
         .content-area { 
@@ -36,6 +47,7 @@
             padding: 20px;
         }
 
+        /* Snowfall Particles (White Only) */
         .snow-particle {
             position: fixed;
             background: white;
@@ -51,7 +63,7 @@
         }
 
         h1 {
-            font-size: clamp(30px, 8vw, 50px); /* Mobile par apne aap chota hoga */
+            font-size: clamp(30px, 8vw, 50px);
             font-weight: 900;
             margin-bottom: 5px;
             text-shadow: 0 0 20px rgba(0, 251, 255, 0.8);
@@ -76,10 +88,10 @@
             background: rgba(255, 255, 255, 0.1);
             color: white; 
             border: 2px solid rgba(0, 251, 255, 0.5); 
-            padding: 14px 20px;
-            width: 100%; /* Mobile par full width */
+            padding: 16px 20px;
+            width: 100%;
             border-radius: 50px;
-            font-size: 18px; 
+            font-size: 19px; 
             font-weight: bold;
             cursor: pointer; 
             display: flex; 
@@ -98,7 +110,7 @@
             transform: scale(0.98);
         }
 
-        .share-icons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .share-icons { display: flex; gap: 25px; justify-content: center; margin-top: 40px; }
         
         .share-icon-btn {
             color: white;
@@ -141,7 +153,7 @@
             <a href="#" id="waShare" target="_blank" class="share-icon-btn">
                 <span class="material-symbols-outlined">share</span>
             </a>
-            <a href="javascript:void(0)" onclick="copyLink()" class="share-icon-btn">
+            <a href="javascript:void(0)" onclick="copyLink(event)" class="share-icon-btn">
                 <span class="material-symbols-outlined">content_copy</span>
             </a>
         </div>
@@ -149,18 +161,20 @@
 </div>
 
 <script>
-    // 1. WhatsApp Share Link Update
+    // 1. WhatsApp Share Link (Site URL apne aap lega)
     const waBtn = document.getElementById('waShare');
-    const pageUrl = window.location.href;
-    waBtn.href = "https://wa.me/?text=" + encodeURIComponent("Check out this Free AI Maker: " + pageUrl);
+    const currentUrl = window.location.href;
+    waBtn.href = "https://api.whatsapp.com/send?text=" + encodeURIComponent("Apna free Marriage Biodata aur Resume yahan banayein: " + currentUrl);
 
     // 2. Copy Link Function
-    function copyLink() {
-        navigator.clipboard.writeText(window.location.href);
-        alert("Link Copied! ✨");
+    function copyLink(e) {
+        e.preventDefault();
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert("Link Copy Ho Gaya! ✨");
+        });
     }
 
-    // 3. Snowfall Logic (Desktop + Mobile)
+    // 3. Snowfall Logic (Desktop Mouse + Mobile Touch dono ke liye)
     const triggers = document.querySelectorAll('.snow-trigger');
 
     function handleInput(e) {
@@ -173,8 +187,10 @@
             y = e.touches[0].clientY;
         }
         
-        for(let i=0; i<2; i++) {
-            createSnow(x, y);
+        if(x && y) {
+            for(let i=0; i<2; i++) {
+                createSnow(x, y);
+            }
         }
     }
 
@@ -184,7 +200,6 @@
     });
 
     function createSnow(x, y) {
-        if(!x || !y) return;
         const particle = document.createElement('div');
         particle.classList.add('snow-particle');
         const size = Math.random() * 5 + 2 + 'px';
@@ -200,4 +215,3 @@
 
 </body>
 </html>
-
