@@ -3,122 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Marriage Biodata & Resume Maker</title>
     
-    <meta name="google-site-verification" content="Qjcfco7wCh-IrNyjJz9xnJg2kKNEKofXrwHxRDPw54w" />
-
-    <title>Free Marriage Biodata & Resume Maker | फ्री बायोडाटा और रिज्यूमे बनाएँ</title>
-    <meta name="description" content="फ्री में शादी का सुंदर बायोडाटा और प्रोफेशनल रिज्यूमे (Resume) बनाएँ। Best online tool for Marriage Biodata and Job Resume creation in Hindi and English.">
-    <meta name="keywords" content="Marriage Biodata Maker, Resume Maker Hindi, Online Resume Builder, Free Biodata Creator, शादी का बायोडाटा, रिज्यूमे मेकर, CV Maker Online">
-    <meta name="author" content="Chandan">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
-    <meta property="og:title" content="Free Marriage Biodata & Resume Maker">
-    <meta property="og:description" content="शादी के लिए बायोडाटा और जॉब के लिए रिज्यूमे बनाएँ सिर्फ 2 मिनट में।">
-    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         body {
-            background-image: url('photo/123.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-image: url('wp4285894-game-of-thrones-4k-wallpapers - Copy.jpg');
+            background-size: cover; background-position: center; height: 100vh;
+            margin: 0; display: flex; justify-content: center; align-items: center;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
-
-        /* यहाँ हमने काला बॉक्स (Background) हटा दिया है */
-        .main-container {
-            background: transparent; 
-            padding: 40px 20px;
-            text-align: center;
-            width: 90%;
-            max-width: 450px;
-            color: white;
-            box-shadow: none;
-            border: none;
+        .main-card {
+            background: rgba(0, 0, 0, 0.7); padding: 40px; border-radius: 20px;
+            text-align: center; color: white; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            max-width: 400px; width: 90%; border: 1px solid rgba(255,255,255,0.1);
         }
-
-        h1 {
-            color: #00FF00;
-            margin-bottom: 10px;
-            font-size: 28px;
-            /* टेक्स्ट को साफ़ दिखाने के लिए मजबूत शैडो */
-            text-shadow: 2px 2px 10px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8);
+        h1 { color: #2ecc71; margin-bottom: 10px; }
+        .btn {
+            background: #00bfff; color: white; border: none; padding: 15px 25px;
+            width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold;
+            margin: 10px 0; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px; transition: 0.3s;
         }
-
-        p { 
-            font-size: 18px; 
-            margin-bottom: 25px; 
-            color: #fff; 
-            font-weight: bold;
-            text-shadow: 2px 2px 8px rgba(0,0,0,1);
-        }
-
-        .box-link {
-            display: block;
-            background: #00BFFF; 
-            color: white;
-            text-decoration: none;
-            padding: 18px;
-            margin: 15px 0;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 20px;
-            transition: 0.3s;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .box-link:hover {
-            background: #1E90FF;
-            transform: translateY(-5px);
-            border-color: #00FF00;
-            box-shadow: 0 5px 20px rgba(0,255,0,0.4);
-        }
-
-        .share-btn {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background-color: #25D366;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .share-btn:hover {
-            background-color: #128C7E;
-            transform: scale(1.05);
-        }
+        .btn:hover { background: #0099cc; transform: translateY(-2px); }
+        .spark-icon { color: #FFD700; font-size: 24px; } /* गोल्डन स्पार्क */
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <h1>Marriage & Resume Maker</h1>
-        <p>अपना बायोडाटा आसानी से बनाने के लिए चुनें:</p>
-        
-        <a href="marriage.html" class="box-link">
-            🤵🏻👰🏻 Marriage Biodata
-        </a>
+<div class="main-card">
+    <h1>Marriage & Resume Maker</h1>
+    <p>अपना बायोडाटा आसानी से बनाने के लिए चुनें:</p>
 
-        <a href="job.html" class="box-link">
-            📜 Create A Resume
-        </a>
+    <button class="btn" onclick="location.href='marriage.html'">
+        <span class="material-symbols-outlined spark-icon">auto_awesome</span>
+        🤵‍♀️🤵 Marriage Biodata
+    </button>
 
-        <a href="https://api.whatsapp.com/send?text=फ्री में शादी का बायोडाटा और रिज्यूमे बनाने के लिए यहाँ क्लिक करें: https://chandan902640-lab.github.io/free-resume-and-marriage-biodata-creator/" target="_blank" class="share-btn">
-            ⌯⌲ दोस्तों को शेयर करें
-        </a>
-    </div>
+    <button class="btn" onclick="location.href='job.html'">
+        <span class="material-symbols-outlined spark-icon">auto_awesome</span>
+        📜 Create A Resume
+    </button>
+</div>
 
 </body>
 </html>
-
