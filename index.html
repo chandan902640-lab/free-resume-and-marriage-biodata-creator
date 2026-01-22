@@ -6,86 +6,147 @@
     <title>Marriage & Resume Maker</title>
     
     <link rel="icon" type="image/png" href="favicon.png">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <style>
         body {
-            /* फोटो फोल्डर के अंदर वाली 123.jpg का उपयोग */
-            background-image: url('photo/123.jpg'); 
+            background-image: url('123.jpg'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
             height: 100vh;
             margin: 0; 
             display: flex; 
+            flex-direction: column;
             justify-content: center; 
             align-items: center;
             font-family: 'Segoe UI', Arial, sans-serif;
+            color: white;
             overflow: hidden;
         }
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); 
-            z-index: -1;
-        }
-
-        .main-card {
-            background: rgba(0, 0, 0, 0.7); 
-            padding: 30px; 
-            border-radius: 20px;
+        .content-area {
             text-align: center; 
-            color: white; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-width: 380px; 
-            width: 85%; 
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            z-index: 10;
         }
 
+        /* टेक्स्ट पर ग्लो इफेक्ट */
+        h1 {
+            font-size: 45px;
+            margin-bottom: 5px;
+            cursor: default;
+            transition: 0.5s;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        h1:hover {
+            color: #00fbff;
+            text-shadow: 0 0 20px #00fbff, 0 0 40px #00fbff; /* कर्सर ले जाने पर लाइट जलेगी */
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+            font-size: 18px;
+            transition: 0.5s;
+        }
+
+        .subtitle:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+
+        /* बटनों के लिए नियन लाइट इफेक्ट */
         .btn {
-            background: linear-gradient(45deg, #00bfff, #0077ff);
-            color: white; border: none; padding: 14px;
-            width: 100%; border-radius: 12px; font-size: 17px; font-weight: bold;
-            margin: 10px 0; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; gap: 10px; transition: 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            color: white; 
+            border: 2px solid #0077ff; 
+            padding: 15px 40px;
+            width: 280px;
+            border-radius: 50px;
+            font-size: 18px; 
+            font-weight: bold;
+            margin: 15px 0; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center;
+            justify-content: center; 
+            gap: 10px; 
+            transition: 0.4s;
             text-decoration: none;
+            backdrop-filter: blur(5px);
         }
 
-        .spark-icon {
-            color: #FFD700; 
-            animation: glow-spark 2s infinite ease-in-out;
+        .btn:hover {
+            background: #0077ff;
+            box-shadow: 0 0 20px #0077ff, 0 0 50px #0077ff; /* बटन के चारों तरफ लाइट */
+            transform: translateY(-5px);
         }
 
-        @keyframes glow-spark {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
+        /* शेयर सेक्शन */
+        .share-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .share-icon-btn {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 50%;
+            display: flex;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .share-icon-btn:hover {
+            background: #FFD700;
+            color: black;
+            box-shadow: 0 0 15px #FFD700;
         }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <h1>
-        <span class="material-symbols-outlined spark-icon" style="font-size: 30px;">auto_awesome</span>
-        AI Maker
-    </h1>
-    <p>Professional Biodata & Resume</p>
+<div class="content-area">
+    <h1>AI Maker</h1>
+    <p class="subtitle">Professional Biodata & Resume</p>
 
-    <button class="btn" onclick="location.href='marriage.html'">
-        <span class="material-symbols-outlined spark-icon">auto_awesome</span>
+    <a href="marriage.html" class="btn">
+        <span class="material-symbols-outlined">auto_awesome</span>
         Marriage Biodata
-    </button>
+    </a>
 
-    <button class="btn" onclick="location.href='job.html'">
-        <span class="material-symbols-outlined spark-icon">auto_awesome</span>
+    <a href="job.html" class="btn">
+        <span class="material-symbols-outlined">description</span>
         Create A Resume
-    </button>
+    </a>
+
+    <div class="share-section">
+        <p style="font-size: 12px; letter-spacing: 2px;">SHARE APP</p>
+        <div class="share-icons">
+            <a href="https://wa.me/?text=Check out this AI Maker!" target="_blank" class="share-icon-btn">
+                <span class="material-symbols-outlined">share</span>
+            </a>
+            <a href="#" onclick="copyLink()" class="share-icon-btn">
+                <span class="material-symbols-outlined">content_copy</span>
+            </a>
+        </div>
+    </div>
 </div>
+
+<script>
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link Copied! अब आप इसे कहीं भी शेयर कर सकते हैं।");
+    }
+</script>
 
 </body>
 </html>
