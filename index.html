@@ -96,7 +96,7 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* --- Share Icons Section with Animated Sunflower Border --- */
+        /* --- Share Icons Section --- */
         .share-icons { 
             display: flex; 
             gap: 25px; 
@@ -106,7 +106,7 @@
         
         .share-icon-btn {
             position: relative;
-            width: 60px;
+            width: 60px; /* Circle size fixed */
             height: 60px;
             display: flex;
             align-items: center;
@@ -116,12 +116,12 @@
             text-decoration: none;
             color: white;
             z-index: 1;
-            overflow: visible; /* Sunflower बाहर दिखने के लिए */
+            overflow: visible; 
         }
 
         /* Spinning Sunflower Border Effect */
         .share-icon-btn::before {
-            content: "🌻 🌻 🌻 🌻"; /* यहाँ आप अपनी पसंद के इमोजी बढ़ा सकते हैं */
+            content: "🌻 🌻 🌻 🌻"; 
             position: absolute;
             width: 140%;
             height: 140%;
@@ -140,15 +140,16 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Yahan logo ko bada kiya gaya hai */
         .share-icon-btn img {
-            width: 28px;
-            height: 28px;
+            width: 38px; /* Logo size increased */
+            height: 38px;
             object-fit: contain;
             z-index: 2;
         }
 
         .share-icon-btn span {
-            font-size: 28px;
+            font-size: 38px; /* Icon size increased */
             z-index: 2;
         }
 
