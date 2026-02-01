@@ -10,7 +10,7 @@
     <meta name="author" content="AI Maker">
     <meta name="robots" content="index, follow">
 
-    <meta property="og:title" content="Free Resume &  biodata maker">
+    <meta property="og:title" content="Free Resume & biodata maker">
     <meta property="og:description" content="Professional biodata aur resume banayein muft mein.">
     <meta property="og:image" content="favicon.png">
     
@@ -30,7 +30,6 @@
             margin: 0; 
             display: flex; 
             flex-direction: column;
-            /* Content ko upar rakhne ke liye flex-start ka upyog kiya gaya hai */
             justify-content: flex-start; 
             padding-top: 60px; 
             align-items: center;
@@ -47,7 +46,7 @@
             padding: 20px;
         }
 
-        /* Snowfall Particles Style */
+        /* Snowfall Particles */
         .snow-particle {
             position: fixed;
             background: white;
@@ -110,26 +109,47 @@
             transform: scale(0.98);
         }
 
-        .share-icons { display: flex; gap: 25px; justify-content: center; margin-top: 40px; }
+        /* Share Section Icons */
+        .share-icons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
         
         .share-icon-btn {
             color: white;
             background: rgba(255,255,255,0.1);
-            padding: 15px;
+            padding: 12px;
             border-radius: 50%;
             display: flex;
+            align-items: center;
+            justify-content: center;
             transition: 0.4s;
             border: 1px solid rgba(0, 251, 255, 0.3);
             text-decoration: none;
+            width: 50px;
+            height: 50px;
         }
 
-        .share-icon-btn:active { background: #00fbff; color: black; }
+        .share-icon-btn img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+
+        .share-icon-btn:active, .share-icon-btn:hover { 
+            background: rgba(0, 251, 255, 0.3); 
+            border-color: #00fbff;
+        }
+
+        .contact-label {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
 <div class="content-area">
-    <h1 class="snow-trigger">Free Resume &  biodata maker</h1>
+    <h1 class="snow-trigger">Free Resume & biodata maker</h1>
     <p class="snow-trigger instruction-text">
         <b>बायोडाटा बनाने के लिए नीचे दिए किसी एक बटन को टच करे</b>
     </p>
@@ -150,18 +170,24 @@
 
     <div class="share-section">
         <div class="share-icons">
-            <a href="#" id="waShare" target="_blank" class="share-icon-btn">
+            <a href="#" id="waShare" target="_blank" class="share-icon-btn" title="WhatsApp Share">
                 <span class="material-symbols-outlined">share</span>
             </a>
-            <a href="javascript:void(0)" onclick="copyLink(event)" class="share-icon-btn">
+            
+            <a href="mailto:chandan902640@gmail.com?subject=Contact%20from%20Website&body=Hi%20Chandan," class="share-icon-btn" title="Email Me">
+                <img src="gmail.png" alt="Gmail">
+            </a>
+
+            <a href="javascript:void(0)" onclick="copyLink(event)" class="share-icon-btn" title="Copy Link">
                 <span class="material-symbols-outlined">content_copy</span>
             </a>
         </div>
+        <p class="contact-label">Contact & Share</p>
     </div>
 </div>
 
 <script>
-    // 1. WhatsApp Share Link Update (Dynamic URL)
+    // 1. WhatsApp Share Link Update
     const waBtn = document.getElementById('waShare');
     const currentUrl = window.location.href;
     waBtn.href = "https://api.whatsapp.com/send?text=" + encodeURIComponent("Apna free Marriage Biodata aur Resume yahan banayein: " + currentUrl);
@@ -174,7 +200,7 @@
         });
     }
 
-    // 3. Snowfall Logic (Desktop Mouse + Mobile Touch dono ke liye)
+    // 3. Snowfall Logic
     const triggers = document.querySelectorAll('.snow-trigger');
 
     function handleInput(e) {
@@ -215,5 +241,3 @@
 
 </body>
 </html>
-
-
