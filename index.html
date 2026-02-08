@@ -29,6 +29,18 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             color: white;
             overflow-x: hidden;
+            background-color: #000; /* Fallback color */
+        }
+
+        /* Dragon Canvas Styling */
+        #dragonCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Content (z-index 10) के पीछे रहेगा */
+            pointer-events: none; /* ड्रैगन के पीछे बटन दब सके */
         }
 
         .content-area { 
@@ -106,7 +118,7 @@
         
         .share-icon-btn {
             position: relative;
-            width: 60px; /* Circle size fixed */
+            width: 60px; 
             height: 60px;
             display: flex;
             align-items: center;
@@ -119,7 +131,6 @@
             overflow: visible; 
         }
 
-        /* Spinning Sunflower Border Effect */
         .share-icon-btn::before {
             content: "🌻 🌻 🌻 🌻"; 
             position: absolute;
@@ -140,16 +151,15 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Yahan logo ko bada kiya gaya hai */
         .share-icon-btn img {
-            width: 38px; /* Logo size increased */
+            width: 38px; 
             height: 38px;
             object-fit: contain;
             z-index: 2;
         }
 
         .share-icon-btn span {
-            font-size: 38px; /* Icon size increased */
+            font-size: 38px; 
             z-index: 2;
         }
 
@@ -164,6 +174,8 @@
     </style>
 </head>
 <body>
+
+<canvas id="dragonCanvas"></canvas>
 
 <div class="content-area">
     <h1 class="snow-trigger">Free Resume & biodata maker</h1>
@@ -204,6 +216,113 @@
 </div>
 
 <script>
+    // --- Dragon Logic Starts ---
+    const canvas = document.getElementById('dragonCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let points = [];
+    let length = 35; 
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    let frame = 0;
+
+    for (let i = 0; i < length; i++) {
+        points.push({ x: mouse.x, y: mouse.y, angle: 0 });
+    }
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    }, {passive: true});
+
+    function getMagicColor(f, alpha) {
+        const colors = [`rgba(0, 255, 255, ${alpha})`, `rgba(255, 255, 255, ${alpha})`, `rgba(50, 255, 126, ${alpha})`];
+        return colors[Math.floor(f / 120) % colors.length];
+    }
+
+    function drawHead(color) {
+        ctx.save();
+        ctx.fillStyle = "white";
+        ctx.shadowBlur = 10; ctx.shadowColor = color;
+        ctx.beginPath();
+        ctx.moveTo(35, 5); ctx.lineTo(42, 0); ctx.lineTo(35, -5); 
+        ctx.lineTo(15, -18); ctx.lineTo(-15, -25); 
+        ctx.lineTo(-30, -45); ctx.lineTo(-20, -18);
+        ctx.lineTo(-28, 5); ctx.lineTo(-28, 20); ctx.lineTo(10, 22); ctx.lineTo(35, 12);
+        ctx.fill();
+        // Teeth
+        ctx.strokeStyle = "white"; ctx.lineWidth = 1.5;
+        for(let j=0; j<4; j++) {
+            ctx.beginPath(); ctx.moveTo(15+j*5, 15); ctx.lineTo(17+j*5, 21); ctx.stroke();
+        }
+        // Eyes
+        ctx.shadowBlur = 15; ctx.shadowColor = "red";
+        ctx.fillStyle = Math.random() > 0.8 ? "red" : "rgba(255,0,0,0.3)";
+        ctx.beginPath(); ctx.arc(18, -6, 5, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+    }
+
+    function drawWings(f, color) {
+        let move = Math.sin(f * 0.05) * 60;
+        ctx.lineWidth = 2; ctx.strokeStyle = color;
+        for (let side of [-1, 1]) {
+            for (let j = 0; j < 5; j++) {
+                ctx.beginPath(); ctx.moveTo(0, side * 10);
+                ctx.quadraticCurveTo(-40, side*(120+move), -150+j*25, side*(220+move-j*40));
+                ctx.stroke();
+            }
+        }
+    }
+
+    function drawLegs(side, color) {
+        ctx.strokeStyle = "white"; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(0, side*15); ctx.lineTo(-15, side*40); ctx.lineTo(-5, side*50);
+        ctx.moveTo(-15, side*40); ctx.lineTo(-25, side*50); ctx.stroke();
+    }
+
+    function animateDragon() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        frame++;
+        let blink = 0.4 + Math.abs(Math.sin(frame * 0.02)) * 0.6;
+        let color = getMagicColor(frame, blink);
+
+        points[0].x += (mouse.x - points[0].x) * 0.1;
+        points[0].y += (mouse.y - points[0].y) * 0.1;
+
+        for (let i = 1; i < points.length; i++) {
+            let p = points[i]; let prev = points[i-1];
+            let angle = Math.atan2(prev.y - p.y, prev.x - p.x);
+            p.angle = angle;
+            p.x = prev.x - Math.cos(angle) * 18;
+            p.y = prev.y - Math.sin(angle) * 18;
+
+            ctx.save();
+            ctx.translate(p.x, p.y); ctx.rotate(p.angle);
+            if (i === 1) drawHead(color);
+            if (i === 7) drawWings(frame, color);
+            if (i === 12 || i === 22) { drawLegs(1, color); drawLegs(-1, color); }
+            let rib = Math.max(45 - i * 1.2, 8);
+            ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(0, -rib); ctx.quadraticCurveTo(10, 0, 0, rib); ctx.stroke();
+            ctx.fillStyle = "white"; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-10, -12); ctx.lineTo(-5, 0); ctx.fill();
+            ctx.restore();
+        }
+        requestAnimationFrame(animateDragon);
+    }
+    animateDragon();
+    // --- Dragon Logic Ends ---
+
     // WhatsApp Share Link Update
     const waBtn = document.getElementById('waShare');
     const currentUrl = window.location.href;
